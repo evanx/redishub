@@ -102,15 +102,7 @@ You specify the authoritative Telegram.org username for the RedisHub account.
 
 You can use `@redishub_bot /signup` which will propose an `openssl` command.
 
-Finally, you can try the following script:
-```shell
-curl -s https://raw.githubusercontent.com/evanx/redishub/master/bin/generate-privcert.sh |
-  bash /dev/stdin $telegramUser
-```
-where you must substitute `$telegramUser` for yours.
-
-Later `@redishub_bot` will assist with generating an client cert using `openssl.`
-
+You use that `openssl` command to generate a PEM for `curl` and P12 for your browser.
 
 ### What bot commands?
 
