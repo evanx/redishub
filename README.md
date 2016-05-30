@@ -89,14 +89,6 @@ You can use `@redishub_bot /signup` which will propose an `openssl` command.
 
 You use that `openssl` command to generate a PEM for `curl` and P12 for your browser.
 
-#### What about ACID?
-
-Atomicity, consistency, isolation and durability guarantees are those offered by Redis. This is a trade-off sacrificing absolute durability in favour of performance, e.g. potentially loosing a second's worth of transactions in the rare event of a server crash, versus the heavy performance cost of a disk sync on every transaction.
-
-We wish to support maximally durable transactions since this is an important use case e.g. to record financial transactions using PostgreSQL. However, I wish firstly to address web content, messaging and analytics use cases, optionally trading off performance for database size using ssdb.io, or performance for durability using PostgreSQL.
-
-Incidently, as an former PostgreSQL DBA for a SaaS application, I'm not convinced that absolute durability is as important as performance. One is always vulnerable to minor "disasters," the most common of which are application and configuration errors. Often application load necessitates tweaking RAID settings to boost performance at the cost of durability.
-
 #### Why use a Redis database rather than SQL?
 
 Redis is a popular and awesome NoSQL database. It's in-memory and so really fast. It supports data structures which are well understood and pretty fundamental, e.g. sets, sorted sets, lists, hashes and geos. Having said that, I love SQL too and may use PostgreSQL for some transactional aspects of RedisHub.
@@ -104,6 +96,14 @@ Redis is a popular and awesome NoSQL database. It's in-memory and so really fast
 #### But isn't Redis just for caching?
 
 Certainly Redis is the leading caching server. But actually Redis is an in-memory "data structure server." As such, it has many use cases, including fast shareable data storage, analytics, geo-spatial processing, synchronisation, queuing and messaging.
+
+#### What about ACID?
+
+Atomicity, consistency, isolation and durability guarantees are those offered by Redis. This is a trade-off sacrificing absolute durability in favour of performance, e.g. potentially loosing a second's worth of transactions in the rare event of a server crash, versus the heavy performance cost of a disk sync on every transaction.
+
+We wish to support maximally durable transactions since this is an important use case e.g. to record financial transactions using PostgreSQL. However, I wish firstly to address web content, messaging and analytics use cases, optionally trading off performance for database size using ssdb.io, or performance for durability using PostgreSQL.
+
+Incidently, as an former PostgreSQL DBA for a SaaS application, I'm not convinced that absolute durability is as important as performance. One is always vulnerable to minor "disasters," the most common of which are application and configuration errors. Often application load necessitates tweaking RAID settings to boost performance at the cost of durability.
 
 #### Why use a hosted Redis service rather than one's own?
 
