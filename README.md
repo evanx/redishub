@@ -97,6 +97,12 @@ Redis is a popular and awesome NoSQL database. It's in-memory and so really fast
 
 Certainly Redis is the leading caching server. But actually Redis is an in-memory "data structure server." As such, it has many use cases, including fast shareable data storage, analytics, geo-spatial processing, synchronisation, queuing and messaging.
 
+#### What are RedisHub lambdas?
+
+These are envisaged as Redis-based lambdas that can be composed into microservices and apps.
+I'm choosing to misdefine "lambdas" as server-side components which access one or more keyspaces.
+They must be stateless to enable auto-scaling, but can store private and shared state in Redis of course. They must be written using a specific ES2016 framework, to simplify orchestration and management, e.g. configuration, keyspace access, logging and metrics.
+
 #### What about ACID?
 
 Atomicity, consistency, isolation and durability guarantees are those offered by Redis. This is a trade-off sacrificing absolute durability in favour of performance, e.g. potentially loosing a second's worth of transactions in the rare event of a server crash, versus the heavy performance cost of a disk sync on every transaction.
@@ -115,12 +121,6 @@ It addresses some use cases where an online serverless storage/messaging service
 There are other PaaS vendors that offer hosted Redis at scale, e.g. AWS ElastiCache, RedisLabs, OpenRedis and RedisGreen.
 
 I wish to experiment with orchestrating Redis instances, clusters and replicas, to automate RedisHub itself. However I'm more interested in other things e.g. auto-archival and supporting serverless lamdbas, than Redis hosting per se.
-
-#### What are RedisHub lambdas?
-
-These are envisaged as Redis-based lambdas that can be composed into microservices and apps.
-I'm choosing to misdefine "lambdas" as server-side components which access one or more keyspaces.
-They must be stateless to enable auto-scaling, but can store private and shared state in Redis of course. They must be written using a specific ES2016 framework, to simplify orchestration and management, e.g. configuration, keyspace access, logging and metrics.
 
 #### How will RedisHub support its lambdas?
 
