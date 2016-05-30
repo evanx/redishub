@@ -25,6 +25,14 @@ Currently, ephemeral keyspaces are created with a randomly generated name, which
 
 Private keyspaces can be created. They are secured using self-signed client certificates e.g. generated using `openssl.`
 
+#### What upcoming features?
+
+HTTP POST
+
+Role-based keyspace access control: Admins can control which certs can access their private keyspaces, and if read-only or add-only.
+
+Export and import to JSON: Entire keyspaces can be exported as a JSON file, or imported or created from such.
+
 
 #### Why do keys expire after 10 minutes?
 
@@ -54,35 +62,12 @@ I'm a web developer based in Cape Town, working on content sites for a news publ
 
 Find me at https://twitter.com/@evanxsummers.
 
+
 #### Why are you doing this?
 
 RedisHub is my pet R&D project, to build something cool with my favourite toys, and thereby explore security, devops, microservices, monitoring, logging, metrics and messaging.
 
 RedisHub is already "mission accomplished" in the sense that it can be used as a "playground" for Redis commands, whilst also providing authenticated access to secure keyspaces for some professional use cases I have in mind. However I'm inspired to take it further.
-
-#### What technology is behind a RedisHub keyspace?
-
-It is a deployment of my Node project: https://github.com/evanx/rquery, using Nginx and Redis 2.8.
-
-There are two production configurations:
-- demo.redishub.com - playground with short TTLs
-- secure.redishub.com - client SSL auth, account admin, longer TTLs
-
-See: https://github.com/evanx/rquery/tree/master/config
-
-For convenience other domains are provided for the "secure" server:
-- cli.redishub.com - for command-line access, so responses are `text/plain` by default
-- json.redishub.com - response content always `application/javascript`
-
-Short-term deployment plans:
-- `hot.redishub.com` VM for hot standby via a Redis replica.
-- `archive.redishub.com` for read-only authenticated access to warm data
-- `cdn.redishub.com` for read-only queries to "hub" warm data via CloudFlare CDN
-
-Note that clients should follow HTTP redirects to the above domains when reading data.
-
-Medium-term deployment plans:
-- a Redis Cluster on load-balanced dedicated servers with 64GB each.
 
 
 #### Why does the site redirect to this Github page?
@@ -103,38 +88,6 @@ You specify the authoritative Telegram.org username for the RedisHub account.
 You can use `@redishub_bot /signup` which will propose an `openssl` command.
 
 You use that `openssl` command to generate a PEM for `curl` and P12 for your browser.
-
-### What bot commands?
-
-Enter `@redishub_bot /start` via https://web.telegram.org
-```
-signup - account for openssl command to create a cert
-verifyme - verify this Telegram account to RedisHub
-grantcert - approve a cert enrollment 
-```
-
-#### How do I trust your server cert?
-
-Our domains are secured via Let's Encrypt:
-```shell
-echo -n | openssl s_client \
-  -connect cli.redishub.com:443 2>/dev/null | grep '^Cert' -A2
-```
-```shell
-Certificate chain
- 0 s:/CN=secure.redishub.com
-   i:/C=US/O=Let's Encrypt/CN=Let's Encrypt Authority X3
-```
-
-Some systems have an outdated "CA certs" file which does not include Let's Encrypt cert.
-
-We can support only clients that trust Let's Encrypt, explicity if not by default:
-```shell
-$ curl --cacert ~/.cacerts/letsencrypt/isrgrootx1.pem.txt https://cli.redishub.com/time/seconds
-1464377206
-```
-
-See: https://letsencrypt.org/2015/06/04/isrg-ca-certs.html
 
 #### What about ACID?
 
@@ -183,7 +136,7 @@ I want to offer a free public utility in perpetuity to support most low-volume u
 
 #### What about higher volume usage?
 
-Users who wish to exceed the above-mentioned free limits, should become a "Sponsor" contributing the equivalent of 50c per month to our Bitcoin wallet: 1Djf7wqB7jqBTWWMoLht9MhLeKBZEkDjS5. Sponsors' limits are bumped up to 50MB RAM (Redis) storage and 50Gb transfer per month. You can double up as needed and contribute accordingly, e.g. $5 for 300MB, $50 for 3GB.
+Users who wish to exceed the above-mentioned free limits, should become a "funder" contributing the equivalent of 50c per month to our Bitcoin wallet: 1Djf7wqB7jqBTWWMoLht9MhLeKBZEkDjS5. Funders' limits are bumped up to 50MB RAM (Redis) storage and 50Gb transfer per month. You can double up as needed and contribute accordingly, e.g. $5 for 300MB, $50 for 3GB.
 
 #### What value length limits?
 
@@ -200,17 +153,60 @@ Currently, your Telegram username is used for your private RedisHub account name
 #### Why Telegram.org?
 
 I've always liked the sound of Telegram, e.g. their security and openness.
-Also I have a new Ubuntu phone, which has Telegram, but not others etc.
+Also I have a Ubuntu phone, which has Telegram.
 Last but not least, I want to enter the Bot competion and maybe get lucky and win one of those prizes.
-"Then we'll be millionares!" as Homer says ;)
+"Then we'll be millionaires!" as Homer says ;)
 
-#### What upcoming features?
 
-HTTP POST
+#### What technology is behind a RedisHub keyspace?
 
-Role-based keyspace access control: Admins can control which certs can access their private keyspaces, and if read-only or add-only.
+It is a deployment of my Node project: https://github.com/evanx/rquery, using Nginx and Redis 2.8.
 
-Export and import to JSON: Entire keyspaces can be exported as a JSON file, or imported or created from such.
+There are two production configurations:
+- demo.redishub.com - playground with short TTLs
+- secure.redishub.com - client SSL auth, account admin, longer TTLs
+
+See: https://github.com/evanx/rquery/tree/master/config
+
+For convenience other domains are provided for the "secure" server:
+- cli.redishub.com - for command-line access, so responses are `text/plain` by default
+- json.redishub.com - response content always `application/javascript`
+
+Short-term deployment plans:
+- `hot.redishub.com` VM for hot standby via a Redis replica.
+- `archive.redishub.com` for read-only authenticated access to warm data
+- `cdn.redishub.com` for read-only queries to "hub" warm data via CloudFlare CDN
+
+Note that clients should follow HTTP redirects to the above domains when reading data.
+
+Medium-term deployment plans:
+- a Redis Cluster on load-balanced dedicated servers with 64GB each.
+
+
+#### How do I trust your server cert?
+
+Our domains are secured via Let's Encrypt:
+```shell
+echo -n | openssl s_client \
+  -connect cli.redishub.com:443 2>/dev/null | grep '^Cert' -A2
+```
+```shell
+Certificate chain
+ 0 s:/CN=secure.redishub.com
+   i:/C=US/O=Let's Encrypt/CN=Let's Encrypt Authority X3
+```
+
+Some systems have an outdated "CA certs" file which does not include Let's Encrypt cert.
+
+We can support only clients that trust Let's Encrypt, explicity if not by default:
+```shell
+$ curl --cacert ~/.cacerts/letsencrypt/isrgrootx1.pem.txt https://cli.redishub.com/time/seconds
+1464377206
+```
+
+See: https://letsencrypt.org/2015/06/04/isrg-ca-certs.html
+
+
 
 ### Goals
 
