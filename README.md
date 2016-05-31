@@ -25,9 +25,12 @@ Currently, ephemeral keyspaces are created with a randomly generated name, which
 
 Private keyspaces can be created. They are secured using self-signed client certificates e.g. generated using `openssl.`
 
+
 #### What upcoming features?
 
-HTTP POST
+HTTP POST: setting keys and values via HTTPS POST (pipes).
+
+Multi support: multiple commands via HTTPS POST
 
 Role-based keyspace access control: Admins can control which certs can access their private keyspaces, and if read-only or add-only.
 

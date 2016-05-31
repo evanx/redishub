@@ -20,15 +20,18 @@ rhhelp() {
   rhhead "RedisHub $account"
   rhinfo 'Try:'
   rhinfo 'rh <keyspace> create-keyspace'
+  rhinfo "rh keyspaces"
   exit 3
 }
 
 kshelp() {
   local keyspace="$1"
   rhhead "RedisHub $account $keyspace"
-  rhinfo "Try the following cmds:"
+  rhinfo "Try the following commands:"
+  rhinfo "rh keyspaces"
   rhinfo "rh $keyspace create-keyspace"
   rhinfo "rh $keyspace <cmd> # e.g. set, get, sadd, hgetall et al"
+  rhinfo "rh $keyspace ttl <key>"
   rhdebug "curl -s -E ~/.redishub/live/privcert.pem https://$domain/ak/$account/$keyspace"
   exit 3
 }
@@ -79,24 +82,34 @@ rhcurl() {
     return 1
   elif [ "$1" = 'routes' ]
   then
-    rhinfo "curl -s -E ~/.redishub/live/privcert.pem https://$domain/routes"
     curlpriv https://$domain/routes
+    return $?
+  elif [ "$1" = 'keyspaces' ]
+  then
+    curlpriv https://$domain/account-keyspaces/$account
     return $?
   elif [ "$1" = 'create-ephemeral' ]
   then
-    rhinfo "curl -s -E ~/.redishub/live/privcert.pem https://$domain/register-cert"
-    curlpriv https://$domain/
+    curlpriv https://$domain/create-ephemeral
     return $?
   elif [ "$1" = 'register-cert' ]
   then
-    rhinfo "curl -s -E ~/.redishub/live/privcert.pem https://$domain/register-cert"
     curlpriv https://$domain/register-cert
     return $?
   elif [ "$1" = 'register-account' ]
   then
-    rhinfo "curl -s -E ~/.redishub/live/privcert.pem https://$domain/register-account-telegram/$account"
     curlpriv https://$domain/register-account-telegram/$account
     return $?
+  elif [ $# -eq 1 ]
+  then
+    if echo "$1" | grep '^create$\|^create-keyspace\|^reg$\|^register$\|^register-keyspace$\|^help$' # TODO
+    then
+      rhhelp
+      return 3
+    else
+      kshelp $1
+      return 3
+    fi
   fi
   local keyspace="$1"
   shift
@@ -107,7 +120,7 @@ rhcurl() {
   fi
   local cmd="$1"
   shift
-  if echo "$cmd" | grep -q '^create$\|^reg$\|^register$\|^register-keyspace$' # TODO
+  if echo "$cmd" | grep '^create$\|^create-keyspace\|^reg$\|^register$\|^register-keyspace$\|^help$' # TODO
   then
     cmd='create-keyspace'
   fi
