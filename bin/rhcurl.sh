@@ -35,7 +35,8 @@ kshelp() {
 
 curlpriv() {
   [ $# -eq 1 ]
-  curlpriv -s -E ~/.redishub/live/privcert.pem "$1"
+  rhdebug "curl -s -E ~/.redishub/live/privcert.pem '$1'"
+  curl -s -E ~/.redishub/live/privcert.pem "$1"
 }
 
 rhcurl() {
