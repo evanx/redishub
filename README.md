@@ -1,7 +1,7 @@
 
 ## RedisHub
 
-Try: https://demo.redishub.com/register-ephemeral
+Try: https://demo.redishub.com/create-ephemeral
 
 Documentation: https://github.com/evanx/rquery
 
@@ -252,7 +252,7 @@ Related specification: https://github.com/evanx/component-validator
 See: https://github.com/evanx/rquery
 
 Notable features (June 2016):
-- Register adhoc ephemeral keyspaces
+- Create adhoc ephemeral keyspaces
 - Identity verification via Telegram.org chat bot `@redishub_bot`
 - Access secured via client-authenticated SSL (secure.redishub.com)
 - Generate tokens for Google Authenticator

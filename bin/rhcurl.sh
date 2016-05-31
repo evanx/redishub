@@ -1,34 +1,41 @@
 
 set -u -e
 
-command=${1-}
+shellCommand1=${1-}
 
 . ~/redishub/bin/rhlogging.sh
 
 tmp=~/.bashbin/ttl/minutes/1
 [ -d $tmp ] || mkdir -p $tmp
 
-if [ ! -r ~/.redishub/live/account ] 
+if [ ! -r ~/.redishub/live/account ]
 then
   rherror 'Missing file: ~/.redishub/live/account'
   rherror 'This file must contain your RedisHub/Telegram account name'
   rherror 'Try @redishub_bot /signup'
   exit 3
-fi 
+fi
 
 rhhelp() {
   rhhead "RedisHub $account"
   rhinfo 'Try:'
-  rhinfo 'rh <keyspace> reg'
+  rhinfo 'rh <keyspace> create-keyspace'
+  exit 3
 }
 
 kshelp() {
   local keyspace="$1"
   rhhead "RedisHub $account $keyspace"
   rhinfo "Try the following cmds:"
-  rhinfo "rh $keyspace register-keyspace"
+  rhinfo "rh $keyspace create-keyspace"
   rhinfo "rh $keyspace <cmd> # e.g. set, get, sadd, hgetall et al"
   rhdebug "curl -s -E ~/.redishub/live/privcert.pem https://$domain/ak/$account/$keyspace"
+  exit 3
+}
+
+curlpriv() {
+  [ $# -eq 1 ]
+  curlpriv -s -E ~/.redishub/live/privcert.pem "$1"
 }
 
 rhcurl() {
@@ -46,7 +53,7 @@ rhcurl() {
   then
     if [ "$1" = 'help' ]
     then
-      rhhelp 
+      rhhelp
       return 0
     elif echo "$1" | grep -q '^https'
     then
@@ -55,62 +62,61 @@ rhcurl() {
     then
       url="https://$1"
     fi
-    if [ -n "$url" ] 
+    if [ -n "$url" ]
     then
       rhdebug "CN=$CN OU=$OU https://$domain/ak/$account/$keyspace/$cmd"
-      curl -s -E ~/.redishub/live/privcert.pem "https://$domain/ak/$account/$keyspace/$cmd"
+      curlpriv "https://$domain/ak/$account/$keyspace/$cmd"
       return $?
     fi
   fi
   local domain=${RHCLI-cli.redishub.com}
   rhdebug domain=$domain account=$account
-  if [ $# -eq 0 ]
-  then
-    rhhelp 
-    return 1
-  elif [ $# -eq 1 ]
-  then
-    if [ "$1" = 'routes' ]
-    then
-      rhinfo "curl -s -E ~/.redishub/live/privcert.pem https://$domain/routes"
-      curl -s -E ~/.redishub/live/privcert.pem https://$domain/routes
-      return $?
-    elif [ "$1" = 'register-cert' ]
-    then
-      rhinfo "curl -s -E ~/.redishub/live/privcert.pem https://$domain/register-cert"
-      curl -s -E ~/.redishub/live/privcert.pem https://$domain/register-cert
-      return $?
-    elif [ "$1" = 'register-account' ]
-    then
-      rhinfo "curl -s -E ~/.redishub/live/privcert.pem https://$domain/register-account-telegram/$account"
-      curl -s -E ~/.redishub/live/privcert.pem https://$domain/register-account-telegram/$account
-      return $?
-    else
-      kshelp $1
-      return 1
-    fi
-  fi
-  local keyspace="$1"
-  shift
+  local uri=''
   if [ $# -eq 0 ]
   then
     rhhelp
     return 1
+  elif [ "$1" = 'routes' ]
+  then
+    rhinfo "curl -s -E ~/.redishub/live/privcert.pem https://$domain/routes"
+    curlpriv https://$domain/routes
+    return $?
+  elif [ "$1" = 'create-ephemeral' ]
+  then
+    rhinfo "curl -s -E ~/.redishub/live/privcert.pem https://$domain/register-cert"
+    curlpriv https://$domain/
+    return $?
+  elif [ "$1" = 'register-cert' ]
+  then
+    rhinfo "curl -s -E ~/.redishub/live/privcert.pem https://$domain/register-cert"
+    curlpriv https://$domain/register-cert
+    return $?
+  elif [ "$1" = 'register-account' ]
+  then
+    rhinfo "curl -s -E ~/.redishub/live/privcert.pem https://$domain/register-account-telegram/$account"
+    curlpriv https://$domain/register-account-telegram/$account
+    return $?
+  fi
+  local keyspace="$1"
+  shift
+  if [ $# -eq 0 -o "${1-}" = 'help' ]
+  then
+    kshelp $keyspace
+    return 1
   fi
   local cmd="$1"
   shift
-  if echo "$cmd" | grep -q '^reg$\|^register$\|^register-keyspace$'
+  if echo "$cmd" | grep -q '^create$\|^reg$\|^register$\|^register-keyspace$' # TODO
   then
-    cmd='register-keyspace'
+    cmd='create-keyspace'
   fi
   while [ $# -gt 0 ]
   do
-    cmd="$cmd/$1"
+    cmd="$cmd"'/'"$1"
     shift
   done
   rhdebug "CN=$CN OU=$OU https://$domain/ak/$account/$keyspace/$cmd"
-  curl -s -E ~/.redishub/live/privcert.pem "https://$domain/ak/$account/$keyspace/$cmd"
+  curlpriv "https://$domain/ak/$account/$keyspace/$cmd"
 }
 
 rhcurl $@
-
