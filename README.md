@@ -26,7 +26,9 @@ Private keyspaces can be created. They are secured using self-signed client cert
 
 #### Why use a Redis database rather than SQL?
 
-Redis is a popular and awesome NoSQL database. It's in-memory and so really fast. It supports data structures which are well understood and pretty fundamental, e.g. sets, sorted sets, lists, hashes and geos. Having said that, I love SQL too and may use PostgreSQL for some transactional aspects of RedisHub.
+Redis is a popular and awesome NoSQL database. It's in-memory and so really fast. It supports data structures which are well understood and pretty fundamental, e.g. sets, sorted sets, lists, hashes and geos. 
+
+Having said that, I love SQL too and may use PostgreSQL to drive `pg.redishub.com` e.g. where each command is saved in a PostgreSQL record like `{account, keyspace, key, command, params}` which can be replayed for point-in-time recovery.
 
 #### But isn't Redis just for caching?
 
