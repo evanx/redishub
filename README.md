@@ -32,13 +32,11 @@ You can use `@redishub_bot /signup` which will propose a bash script to generate
 
 #### What upcoming features?
 
-HTTP POST: setting keys and values via HTTPS POST (pipes).
-
-Multi support: multiple commands via HTTPS POST
-
-Role-based keyspace access control: Admins can control which certs can access their private keyspaces, and if read-only or add-only.
-
-Export and import to JSON: Entire keyspaces can be exported as a JSON file, or imported or created from such.
+- setting keys and values via HTTPS POST (pipes)
+- multiple commands transactions via HTTPS POST
+- retry requests that will not execute if previously successful e.g. so `lpush` commands are safe to retry if response not received
+- role-based keyspace access control - admins can control which certs can access their private keyspaces, and if read-only or add-only
+- export and import to JSON: Entire keyspaces can be exported as a JSON file, or imported or created from such
 
 
 #### Why do keys expire after 10 minutes?
