@@ -24,9 +24,23 @@ Currently, ephemeral keyspaces are created with a randomly generated name, which
 
 Private keyspaces can be created. They are secured using self-signed client certificates e.g. generated using `openssl.`
 
+#### How do I navigate the site?
+
+Links are shown in red. Otherwise click anywhere on the iconized header to go "back" e.g. to your keyspace home, `/routes` and finally here.
+
+#### How do I try Redis commands?
+
+Try: https://demo.redishub.com/create-ephemeral
+
+This will create a new ephemeral keyspace for you. The keyspace home page lists some sample commands you can try. These links are rendered in red.
+
+Incidently, this will create a ephemeral keyspace on the "demo" database. TTLs are 10 minutes only, but this is fine for the playground. Incidently, anytime a key is accessed, its TTL is reset to 10 minutes, so it's an idle-out.
+
+Note that currently we don't have a command completion tool, but you can edit the URL itself in the browser location bar. Also try to change the domain to `replica.redishub.com` to check the replication. Incidently, we forward to introducing a disk-based `archive.redishub.com` from which cold data can be recovered.
+
 #### Why use a Redis database rather than SQL?
 
-Redis is a popular and awesome NoSQL database. It's in-memory and so really fast. It supports data structures which are well understood and pretty fundamental, e.g. sets, sorted sets, lists, hashes and geos. 
+Redis is a popular and awesome NoSQL database. It's in-memory and so really fast. It supports data structures which are well understood and pretty fundamental, e.g. sets, sorted sets, lists, hashes and geos.
 
 Having said that, I love SQL too and may use PostgreSQL to drive `pg.redishub.com` e.g. where each command is saved in a PostgreSQL record like `{account, keyspace, key, command, params}` which can be replayed for point-in-time recovery.
 
