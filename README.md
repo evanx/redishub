@@ -109,10 +109,12 @@ Having said that, you can:
 #### Why do my client certs have CN and OU names only?
 
 Our scripts assist with generating RedisHub client certs with DN defaults such that:
-- CN - unique email-style name of an identity (user/device ID) granted access to the account
-- OU - URL-style name that distingishes a RedisHub account, and a role for access by this cert 
-- O - RedisHub account as per the authoritative Telegram.org account of an individual or organisation
+- CN - unique identity (user/device ID) granted access to the account
+- OU - role for access by this cert 
+- O - RedisHub account as per an individual or organisation
 - Other location fields are optionally specified
+
+Note that an authoritative Telegram.org account is linked to the RedisHub account. Therefore an organisation, like an individual, should create its own Telegram.org account, e.g. using a prepaid SIM.
 
 #### What are RedisHub lambdas?
 
