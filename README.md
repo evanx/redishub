@@ -26,6 +26,10 @@ Currently, ephemeral keyspaces are created with a randomly generated name, which
 Private keyspaces can be created. They are secured using self-signed client certificates e.g. generated using `openssl.`
 
 
+#### How do I generate an RedisHub admin cert?
+
+You can use `@redishub_bot /signup` which will propose a bash script to generate a `privcert.pem` (e.g. for curl CLI) and `privcert.p12` to import into your browser.
+
 #### What upcoming features?
 
 HTTP POST: setting keys and values via HTTPS POST (pipes).
@@ -84,14 +88,6 @@ Having said that, you can:
 - login your web browser using your self-signed client cert
 
 
-#### How do I generate an RedisHub admin cert?
-
-You specify the authoritative Telegram.org username for the RedisHub account.
-
-You can use `@redishub_bot /signup` which will propose an `openssl` command.
-
-You use that `openssl` command to generate a PEM for `curl` and P12 for your browser.
-
 #### Why use a Redis database rather than SQL?
 
 Redis is a popular and awesome NoSQL database. It's in-memory and so really fast. It supports data structures which are well understood and pretty fundamental, e.g. sets, sorted sets, lists, hashes and geos. Having said that, I love SQL too and may use PostgreSQL for some transactional aspects of RedisHub.
@@ -123,7 +119,7 @@ It addresses some use cases where an online serverless storage/messaging service
 
 There are other PaaS vendors that offer hosted Redis at scale, e.g. AWS ElastiCache, RedisLabs, OpenRedis and RedisGreen.
 
-I wish to experiment with orchestrating Redis instances, clusters and replicas, to automate RedisHub itself. However I'm more interested in other things e.g. auto-archival and supporting serverless lamdbas, than Redis hosting per se.
+I wish to experiment with orchestrating Redis instances, clusters and replicas, to automate RedisHub itself. However I'm more interested in other things e.g. auto-archival and serverless lamdbas, than Redis hosting per se.
 
 #### How will RedisHub support its lambdas?
 
@@ -139,7 +135,7 @@ I want to offer a free public utility in perpetuity to support most low-volume u
 
 #### What about higher volume usage?
 
-Users who wish to exceed the above-mentioned free limits, should become a "funder" contributing the equivalent of 50c per month to our Bitcoin wallet: 1Djf7wqB7jqBTWWMoLht9MhLeKBZEkDjS5. Funders' limits are bumped up to 50MB RAM (Redis) storage and 50Gb transfer per month. You can double up as needed and contribute accordingly, e.g. $5 for 300MB, $50 for 3GB.
+Users who wish to exceed the above-mentioned free limits, should become a "funder" contributing the equivalent of 50c per month to our Bitcoin wallet. Funders' limits are bumped up to 50MB RAM (Redis) storage and 50Gb transfer per month. You can double up as needed and contribute accordingly, e.g. $5 for 300MB, $50 for 3GB.
 
 #### What value length limits?
 
@@ -149,9 +145,11 @@ Later we will support `POST` for `set, hset` et al, and thereby enable larger do
 
 #### How to register an account
 
-I haven't yet built a typical SaaS web site with signup, signin with Github, etc. Nevertheless one must be able to identify and alert users for operational reasons, e.g. send a monthly usage report.
+Chat `/signup` to `@redishub_bot` on https://web.telegram.org. That will propose an `openssl` script for `bash.`
 
-Currently, your Telegram username is used for your private RedisHub account name. See documentation: https://github.com/evanx/rquery.
+I haven't yet built a typical SaaS web site (yet) with signup, signin with Google, etc. 
+
+Currently, your Telegram username is used for your private RedisHub account name.
 
 #### Why Telegram.org?
 
@@ -160,14 +158,21 @@ Also I have a Ubuntu phone, which has Telegram.
 Last but not least, I want to enter the Bot competion and maybe get lucky and win one of those prizes.
 "Then we'll be millionaires!" as Homer says ;)
 
-
 #### What technology is behind a RedisHub keyspace?
 
 It is a deployment of my Node project: https://github.com/evanx/rquery, using Nginx and Redis 2.8.
 
-There are two production configurations:
-- demo.redishub.com - playground with short TTLs
+The first two machines are `joy` and `stallman` (1GB) named after Bill Joy and Richard Stallman :)
+
+Soon we will be serving "open" data globally via the CloudFlare CDN. This is for "warm" data that you specifically want to publish. It will be cached by CloudFlare for 3 minutes.
+
+We dream of deploying Redis Clusters on multiple 32GB and/or 64GB dedicated machines in multiple regions e.g. Canada (OVH), France (OVH), South Africa (Hetzner) and Asia. Early adopters who fund this expansion as paying customers, will become co-owners of RedisHub via a sharepool. I'm still working out the details, but the plan is that customers are "funders" owning 49% of RedisHub, where I own 51% and make executive decisions. Watch for announcements via https://twitter.com/@evanxsummers.
+
+There are multiple production configurations deployed via Nginx:
+- demo.redishub.com - playground with short TTLs and no client auth
 - secure.redishub.com - client SSL auth, account admin, longer TTLs
+- open.redishub.com - no client SSL auth e.g. used for enrollment and public/secret ephemeral keyspaces
+- replica.redishub.com` VM for hot standby via a Redis replica
 
 See: https://github.com/evanx/rquery/tree/master/config
 
@@ -176,7 +181,6 @@ For convenience other domains are provided for the "secure" server:
 - json.redishub.com - response content always `application/javascript`
 
 Short-term deployment plans:
-- `hot.redishub.com` VM for hot standby via a Redis replica.
 - `archive.redishub.com` for read-only authenticated access to warm data
 - `cdn.redishub.com` for read-only queries to "hub" warm data via CloudFlare CDN
 
@@ -185,6 +189,14 @@ Note that clients should follow HTTP redirects to the above domains when reading
 Medium-term deployment plans:
 - a Redis Cluster on load-balanced dedicated servers with 64GB each.
 
+#### What are the domains demo, open, secure et al?
+
+The `demo` domain has its own database, but otherwise all subdomains access the same master database: 
+ - `open` - without client cert authentication 
+ - `secure` - with client cert authentication
+ - `replica` - read-only replica (hot data)
+ - `cdn` - read-only cached replica (warm data)
+ - `archive` - read-only disk-based archive (cold data)
 
 #### How do I trust your server cert?
 
@@ -210,7 +222,6 @@ $ curl --cacert ~/.cacerts/letsencrypt/isrgrootx1.pem.txt https://cli.redishub.c
 See: https://letsencrypt.org/2015/06/04/isrg-ca-certs.html
 
 
-
 ### Goals
 
 Build a site "redishub.com" with a foundational HTTP service for accessing and mutating keys in a hosted Redis "keyspace."
@@ -218,7 +229,7 @@ Build a site "redishub.com" with a foundational HTTP service for accessing and m
 A keyspace is an online database accessible via Redis-style commands, and can be Redis i.e. in-memory, or disk-based e.g. via ssdb.io.
 
 User stories:
-- Use a free hosted Redis "keyspace" for low-volume ephemeral purposes (currently Redis so in-memory i.e. very fast)
+- Use a free hosted Redis "keyspace" for low-volume ephemeral purposes
 - Deploy your own private "redishub" instance using the `rquery` opensource implementation, as used by RedisHub
 
 Potential uses of keyspaces:
