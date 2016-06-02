@@ -60,7 +60,6 @@ You can use `@redishub_bot /signup` which will propose a bash script to generate
 - role-based keyspace access control - admins can control which certs can access their private keyspaces, and if read-only or add-only
 - export and import to JSON: Entire keyspaces can be exported as a JSON file, or imported or created from such
 
-
 #### Why do keys expire after 10 minutes?
 
 Ephemeral (unauthenticated) keyspaces expire in 10 minutes.
@@ -183,7 +182,7 @@ There are multiple production configurations deployed via Nginx:
 - demo.redishub.com - playground with short TTLs and no client auth
 - secure.redishub.com - client SSL auth, account admin, longer TTLs
 - open.redishub.com - no client SSL auth e.g. used for enrollment and public/secret ephemeral keyspaces
-- replica.redishub.com` VM for hot standby via a Redis replica
+- replica.redishub.com - replica and hot standby
 
 See: https://github.com/evanx/rquery/tree/master/config
 
@@ -198,7 +197,7 @@ Short-term deployment plans:
 Note that clients should follow HTTP redirects to the above domains when reading data.
 
 Medium-term deployment plans:
-- a Redis Cluster on load-balanced dedicated servers with 64GB each.
+- a Redis Cluster on load-balanced dedicated servers e.g. with 64GB each.
 
 #### What are the domains demo, open, secure et al?
 
