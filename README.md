@@ -106,6 +106,14 @@ Having said that, you can:
 - signup via Telegram.org chat to `@redishub_bot`
 - login your web browser using your self-signed client cert
 
+#### Why do my client certs have CN and OU names only?
+
+Our scripts assist with generating RedisHub client certs with DN defaults such that:
+- CN - unique email-style name of an identity (user/device ID) granted access to the account
+- OU - URL-style name that distingishes a RedisHub account, and a role for access by this cert 
+- O - RedisHub account as per the authoritative Telegram.org account of an individual or organisation
+- Other location fields are optionally specified
+
 #### What are RedisHub lambdas?
 
 These are envisaged as Redis-based lambdas that can be composed into microservices and apps.
