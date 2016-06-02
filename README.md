@@ -34,9 +34,9 @@ Try: https://demo.redishub.com/create-ephemeral
 
 This will create a new ephemeral keyspace for you. The keyspace home page lists some sample commands you can try. These links are rendered in red.
 
-Incidently, this will create a ephemeral keyspace on the "demo" database. TTLs are 10 minutes only, but this is fine for the playground. Incidently, anytime a key is accessed, its TTL is reset to 10 minutes, so it's an idle-out.
+Incidently, this will create a ephemeral keyspace on the "demo" database. TTLs are 10 minutes only, but this is fine for the playground.
 
-Note that currently we don't have a command completion tool, but you can edit the URL itself in the browser location bar. Also try to change the domain to `replica.redishub.com` to check the replication. Incidently, we forward to introducing a disk-based `archive.redishub.com` from which cold data can be recovered.
+Note that currently we don't have a command completion tool, but you can edit the URL itself in the browser location bar. Also try to change the domain to `replica.redishub.com` to check the replication.
 
 #### Why use a Redis database rather than SQL?
 
@@ -154,7 +154,7 @@ We currently only support `GET` where the maximum URL length is 2083 characters,
 
 Later we will support `POST` for `set, hset` et al, and thereby enable larger document limits.
 
-#### How to register an account
+#### How to create an account
 
 Chat `/signup` to `@redishub_bot` on https://web.telegram.org. That will propose an `openssl` script for `bash.`
 
