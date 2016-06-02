@@ -12,7 +12,6 @@ Note that (insecure) HTTP access to all RedisHub domains, and also some other HT
 
 UNSTABLE, INCOMPLETE
 
-
 ### FAQ
 
 #### What is RedisHub?
@@ -25,6 +24,13 @@ Currently, ephemeral keyspaces are created with a randomly generated name, which
 
 Private keyspaces can be created. They are secured using self-signed client certificates e.g. generated using `openssl.`
 
+#### Why use a Redis database rather than SQL?
+
+Redis is a popular and awesome NoSQL database. It's in-memory and so really fast. It supports data structures which are well understood and pretty fundamental, e.g. sets, sorted sets, lists, hashes and geos. Having said that, I love SQL too and may use PostgreSQL for some transactional aspects of RedisHub.
+
+#### But isn't Redis just for caching?
+
+Certainly Redis is the leading caching server. But actually Redis is an in-memory "data structure server." As such, it has many use cases, including fast shareable data storage, analytics, geo-spatial processing, synchronisation, queuing and messaging.
 
 #### How do I generate an RedisHub admin cert?
 
@@ -85,15 +91,6 @@ Having said that, you can:
 - signup via Telegram.org chat to `@redishub_bot`
 - login your web browser using your self-signed client cert
 
-
-#### Why use a Redis database rather than SQL?
-
-Redis is a popular and awesome NoSQL database. It's in-memory and so really fast. It supports data structures which are well understood and pretty fundamental, e.g. sets, sorted sets, lists, hashes and geos. Having said that, I love SQL too and may use PostgreSQL for some transactional aspects of RedisHub.
-
-#### But isn't Redis just for caching?
-
-Certainly Redis is the leading caching server. But actually Redis is an in-memory "data structure server." As such, it has many use cases, including fast shareable data storage, analytics, geo-spatial processing, synchronisation, queuing and messaging.
-
 #### What are RedisHub lambdas?
 
 These are envisaged as Redis-based lambdas that can be composed into microservices and apps.
@@ -145,7 +142,7 @@ Later we will support `POST` for `set, hset` et al, and thereby enable larger do
 
 Chat `/signup` to `@redishub_bot` on https://web.telegram.org. That will propose an `openssl` script for `bash.`
 
-I haven't yet built a typical SaaS web site (yet) with signup, signin with Google, etc. 
+I haven't yet built a typical SaaS web site (yet) with signup, signin with Google, etc.
 
 Currently, your Telegram username is used for your private RedisHub account name.
 
@@ -189,8 +186,8 @@ Medium-term deployment plans:
 
 #### What are the domains demo, open, secure et al?
 
-The `demo` domain has its own database, but otherwise all subdomains access the same master database: 
- - `open` - without client cert authentication 
+The `demo` domain has its own database, but otherwise all subdomains access the same master database:
+ - `open` - without client cert authentication
  - `secure` - with client cert authentication
  - `replica` - read-only replica (hot data)
  - `cdn` - read-only cached replica (warm data)
