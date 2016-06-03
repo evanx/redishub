@@ -18,7 +18,7 @@ UNSTABLE, INCOMPLETE
 
 It is envisaged as online hub of Redis keyspaces accessed via HTTPS. These can be private, public or shared. We support various Redis commands for lists, sets etc, although not all (yet).
 
-RedisHub is intended as a free serverless database for some low-volume use cases e.g. with data expiring from RAM if not accessed for some time.
+RedisHub is intended as a serverless database, cache and messaging hub, accessed via HTTPS.
 
 Currently, ephemeral keyspaces are created with a randomly generated name, which you can keep secret, or share.
 
@@ -110,7 +110,7 @@ Having said that, you can:
 
 Our scripts assist with generating RedisHub client certs with DN defaults such that:
 - CN - unique identity (user/device ID) granted access to the account
-- OU - role for access by this cert 
+- OU - role for access by this cert
 - O - RedisHub account as per an individual or organisation
 - Other location fields are optionally specified
 
@@ -182,16 +182,12 @@ Last but not least, I want to enter the Bot competion and maybe get lucky and wi
 
 It is a deployment of my Node project: https://github.com/evanx/rquery, using Nginx and Redis 2.8.
 
-The first two machines are `joy` and `stallman` (1GB) named after Bill Joy and Richard Stallman :)
-
-Soon we will be serving "open" data globally via the CloudFlare CDN. This is for "warm" data that you specifically want to publish. It will be cached by CloudFlare for 3 minutes.
-
-We dream of deploying Redis Clusters on multiple 32GB and/or 64GB dedicated machines in multiple regions e.g. Canada (OVH), France (OVH), South Africa (Hetzner) and Asia. Early adopters who fund this expansion as paying customers, will become co-owners of RedisHub via a sharepool. I'm still working out the details, but the plan is that customers are "funders" owning 49% of RedisHub, where I own 51% and make executive decisions. Watch for announcements via https://twitter.com/@evanxsummers.
+We intend to serve data globally via the CloudFlare CDN on `cdn.redishub.com.` This is for URL-secured data e.g. that you specifically publish from account keyspaces. It will be cached by CloudFlare for 3 minutes, and so is "warm" data, i.e. regularly updated. Incidently, we classify `replica.redishub.com` as "hot" data, since it is updated continually via database replication, and not cached via CloudFlare. Moreover it performs client cert authentication to authorise account access.
 
 There are multiple production configurations deployed via Nginx:
 - demo.redishub.com - playground with short TTLs and no client auth
 - secure.redishub.com - client SSL auth, account admin, longer TTLs
-- open.redishub.com - no client SSL auth e.g. used for enrollment and public/secret ephemeral keyspaces
+- open.redishub.com - no client SSL auth e.g. used for enrollment and public/secret keyspaces
 - replica.redishub.com - replica and hot standby
 
 See: https://github.com/evanx/rquery/tree/master/config
@@ -202,21 +198,39 @@ For convenience other domains are provided for the "secure" server:
 
 Short-term deployment plans:
 - `archive.redishub.com` for read-only authenticated access to warm data
-- `cdn.redishub.com` for read-only queries to "hub" warm data via CloudFlare CDN
+- `cdn.redishub.com` for read-only queries to open warm data via CloudFlare CDN
 
 Note that clients should follow HTTP redirects to the above domains when reading data.
 
 Medium-term deployment plans:
 - a Redis Cluster on load-balanced dedicated servers e.g. with 64GB each.
 
+As soon as warranted, we look forward to deploying Redis Clusters on multiple 64GB dedicated machines in multiple regions.
+
+Incidently, early adopters who pay for more resources e.g. 50c per 32MB RAM, will become co-owners of RedisHub via a sharepool. The shareholding of the pool will be computed by an algorithm.
+
+#### What financial technology is planned?
+
+For a given point in time e.g. a specific month end, the resource algo will reduce multiple time series, including the virtual currency transfers (credits) to a RedisHub wallet, reconciled with the actual resource costs (debits) of the account associated with the sender's virtual currency address. It thereby generates an account statement.
+
+Similarly, the shareholding algo will determine the virtual shareholding of each account.
+
+The shareholding algo must reward early adopters, since they are naturally critical to success.
+
+Clearly it must also reward pre-payment, since our financial surplus provides financial security to operations, and can be used for development and dividend payouts.
+
+The dividend algo might also be a mechanism for share transfers, whereby account holders provide buy/sell orders for price/volume. If their buy volume is zero, then they are paid the dividend in full. Otherwise their buy/sell orders are settled, and their dividend recalculated.
+
+I'm still working out the details, but the reality is that customers are "funders." The plan is that funders collectively own 49% of RedisHub. I own 51%, make executive decisions and provide regular reports to shareholders i.e. a newsletter to customers :) Watch out for announcements via https://twitter.com/@evanxsummers.
+
 #### What are the domains demo, open, secure et al?
 
 The `demo` domain has its own database, but otherwise all subdomains access the same master database:
  - `open` - without client cert authentication
- - `secure` - with client cert authentication
- - `replica` - read-only replica (hot data)
+ - `secure` - with client cert authentication for account endpoints
+ - `replica` - read-only replica (hot data) with optional client authentication
  - `cdn` - read-only cached replica (warm data)
- - `archive` - read-only disk-based archive (cold data)
+ - `archive` - read-only disk-based archive to recover cold data
 
 #### How do I trust your server cert?
 
