@@ -1,12 +1,48 @@
 
 set -u -e
 
+serviceLabel=${RHLABEL-RedisHub}
+domain=${RHCLI-cli.redishub.com}
+cdn=${RHCLICDN-cli.redishub.com}
+
+[ "$domain" != 'cli.redishub.com' ] && serviceLabel=$domain
+
+shellName=$0
 shellCommand1=${1-}
+shellArgs="${*}"
 
 . ~/redishub/bin/rhlogging.sh
 
-tmp=~/.bashbin/ttl/minutes/1
-[ -d $tmp ] || mkdir -p $tmp
+tmp=~/.ttl/redishub/days/1
+if [ ! -d $tmp ] 
+then
+  rhwarn "Creating tmp directory: mkdir -p $tmp"
+  rhinfo "Press Ctrl-C to abort, or Enter to continue..."
+  read _continue
+  mkdir -p $tmp
+else
+  rhdebug tmp $tmp
+fi
+
+trap_error() {
+  local code="${1}"
+  local lineno="$2"
+  [ $code != 253 ] && rherror "line $lineno: error code $code"
+  rhinfo "Try using bash -x as follows:"
+  rhinfo "bash -x ~/redishub/bin/rhcurl $shellArgs"
+}
+
+trap_sigint() {
+  find ~/.bashbin/ttl/days/1 -type f -mtime +1 -delete 
+}
+
+trap_sigterm() {
+  find ~/.bashbin/ttl/days/1 -type f -mtime +1 -delete 
+}
+
+trap trap_sigint SIGINT
+trap trap_sigterm SIGTERM 
+trap 'trap_error $? ${LINENO}' ERR
 
 if [ ! -r ~/.redishub/live/account ]
 then
@@ -16,12 +52,23 @@ then
   exit 3
 fi
 
+kshelp1() {
+  local keyspace=$1
+  rhinfo "rh $keyspace help # builtin help"
+  rhinfo "rh $keyspace set mykey myvalue # set a key to value"
+  rhinfo "rh $keyspace get mykey # get a key"
+  rhinfo "rh $keyspace ttl mykey # show the key time to live"
+  rhinfo "rh $keyspace lpush mylist myvalue # push to a list"
+}
+
 rhhelp() {
-  rhhead "RedisHub $account"
+  rhhead "$serviceLabel $account "
   rhinfo 'Try:'
-  rhinfo 'rh <keyspace> create-keyspace'
-  rhinfo "rh keyspaces # list yout account keyspaces"
-  exit 3
+  rhinfo 'rh create-ephemeral # create a new ephemeral keyspace'
+  rhinfo 'rh tmp10days create-keyspace'
+  rhinfo "rh keyspaces # list your account keyspaces"
+  kshelp1 tmp10days
+  rhinfo "rh routes # more online help"
 }
 
 kshelp() {
@@ -29,11 +76,12 @@ kshelp() {
   rhhead "RedisHub $account $keyspace"
   rhinfo "Try the following commands:"
   rhinfo "rh keyspaces"
-  rhinfo "rh $keyspace create-keyspace"
-  rhinfo "rh $keyspace <cmd> # e.g. set, get, sadd, hgetall et al"
-  rhinfo "rh $keyspace ttl <key>"
+  rhinfo "rh $keyspace create-keyspace # if new"
+  rhinfo "rh $keyspace \$command \$key ...params # e.g. set, get, sadd, hgetall et al"
+  rhinfo "rh $keyspace ttl \$key"
+  rhinfo "rh routes # more online help"
   rhdebug "curl -s -E ~/.redishub/live/privcert.pem https://$domain/ak/$account/$keyspace"
-  exit 3
+  exit 253
 }
 
 curlpriv() {
@@ -80,10 +128,23 @@ rhcurl() {
   if [ $# -eq 0 ]
   then
     rhhelp
-    return 1
+    return 253
   elif [ "$1" = 'routes' ]
   then
-    curlpriv https://$domain/routes
+    if [ ! -f $tmp/routes ]
+    then
+      if ! curl -s https://$cdn/routes > $tmp/routes
+      then
+        rm -f $tmp/routes
+        rherror "https://$cdn/routes (code $?)"
+        return 4
+      fi
+    fi
+    cat $tmp/routes | grep '^accountKeyspace:' -B99 
+    cat $tmp/routes | grep '^accountKeyspace:' -A99 |
+      sed -n 's/^\/ak\/:account\/:keyspace\/\([a-z][-a-z]*\)$/\1/p' | tr '/' ' '
+    cat $tmp/routes | grep '^accountKeyspace:' -A99 |
+      sed -n 's/^\/ak\/:account\/:keyspace\/\([a-z][-a-z]*\)\/\(.*\)$/\1 \2/p' | tr '/' ' ' | sed 's/://g'
     return $?
   elif [ "$1" = 'keyspaces' ]
   then
@@ -106,10 +167,10 @@ rhcurl() {
     if echo "$1" | grep '^create$\|^create-keyspace\|^reg$\|^register$\|^register-keyspace$\|^help$' # TODO
     then
       rhhelp
-      return 3
+      return 253
     else
       kshelp $1
-      return 3
+      return 63
     fi
   fi
   local keyspace="$1"
@@ -117,7 +178,7 @@ rhcurl() {
   if [ $# -eq 0 -o "${1-}" = 'help' ]
   then
     kshelp $keyspace
-    return 1
+    return 253
   fi
   local cmd="$1"
   shift
@@ -130,8 +191,13 @@ rhcurl() {
     cmd="$cmd"'/'"$1"
     shift
   done
-  rhdebug "CN=$CN OU=$OU https://$domain/ak/$account/$keyspace/$cmd"
-  curlpriv "https://$domain/ak/$account/$keyspace/$cmd"
+  if echo "$keyspace" | grep -q '^hub/'
+  then
+    curlpriv "https://$domain/ak/$keyspace/$cmd"
+  else
+    rhdebug "CN=$CN OU=$OU https://$domain/ak/$account/$keyspace/$cmd"
+    curlpriv "https://$domain/ak/$account/$keyspace/$cmd"
+  fi
 }
 
 rhcurl $@
