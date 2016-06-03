@@ -134,8 +134,10 @@ rhcurl() {
     return 253
   elif [ "$1" = 'routes' ]
   then
-    if [ ! -f $tmp/routes ]
+    if [ -f $tmp/routes ]
     then
+      rhdebug "cached file stat" $tmp/routes $[ `date +%s` - `stat -c %Z $tmp/routes` ]
+    else
       if ! curl -s https://$cdn/routes > $tmp/routes
       then
         rm -f $tmp/routes
