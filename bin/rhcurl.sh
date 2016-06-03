@@ -27,9 +27,12 @@ fi
 trap_error() {
   local code="${1}"
   local lineno="$2"
-  [ $code != 253 ] && rherror "line $lineno: error code $code"
-  rhinfo "Try using bash -x as follows:"
-  rhinfo "bash -x ~/redishub/bin/rhcurl $shellArgs"
+  if [ $code -lt 63 ] 
+  then
+    rherror "line $lineno: error code $code"
+    rhinfo "Try using bash -x as follows:"
+    rhinfo "bash -x ~/redishub/bin/rhcurl $shellArgs"
+  fi
 }
 
 trap_sigint() {
