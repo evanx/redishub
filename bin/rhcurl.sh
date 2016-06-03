@@ -20,7 +20,7 @@ rhhelp() {
   rhhead "RedisHub $account"
   rhinfo 'Try:'
   rhinfo 'rh <keyspace> create-keyspace'
-  rhinfo "rh keyspaces"
+  rhinfo "rh keyspaces # list yout account keyspaces"
   exit 3
 }
 
@@ -46,10 +46,11 @@ rhcurl() {
   openssl x509 -text -in ~/.redishub/live/privcert.pem > $tmp.certInfo
   CN=`cat "$tmp.certInfo" | grep 'CN=' | sed -n 's/.*CN=\(\S*\),.*/\1/p' | head -1`
   OU=`cat "$tmp.certInfo" | grep 'OU=' | sed -n 's/.*OU=\(\S*\).*/\1/p' | head -1`
+  O=`cat "$tmp.certInfo" | grep 'O=' | sed -n 's/.*O=\(\S*\).*/\1/p' | head -1`
   account=`cat ~/.redishub/live/account`
-  if ! echo $OU | grep -q "%${account}@"
+  if ! echo $O | grep -q "^${account}$"
   then
-    echo "ERROR $OU does not match Telegram user $account"
+    echo "ERROR O name '$O' does not match account '$account'"
     return 3
   fi
   local url=''
