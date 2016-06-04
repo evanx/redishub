@@ -26,13 +26,13 @@ Private keyspaces can be created. They are secured using self-signed client cert
 
 #### How do I navigate the site?
 
-Links are shown in red. Otherwise click anywhere on the iconized header to go "back" e.g. to your keyspace home, `/routes` and finally here.
+Links are shown in color. Otherwise click anywhere on the iconized header to go "back" e.g. to your keyspace home, `/routes` and finally here.
 
 #### How do I try Redis commands?
 
 Try: https://demo.redishub.com/create-ephemeral
 
-This will create a new ephemeral keyspace for you. The keyspace home page lists some sample commands you can try. These links are rendered in red.
+This will create a new ephemeral keyspace for you. The keyspace home page lists some sample commands you can try. These links are rendered in color.
 
 Incidently, this will create a ephemeral keyspace on the "demo" database. TTLs are 10 minutes only, but this is fine for the playground.
 
@@ -52,11 +52,17 @@ Certainly Redis is the leading caching server. But actually Redis is an in-memor
 
 You can use `@redishub_bot /signup` which will propose a bash script to generate a `privcert.pem` (e.g. for curl CLI) and `privcert.p12` to import into your browser.
 
+#### How do I force my browser to send my cert
+
+Open a new incognito window, or restart your browser. This is required if you pressed Cancel in Chrome when prompted to select the cert. The browser remembers that for the current session, and so will not ask again. 
+
+The "secure" site allows sessions without a cert e.g. for "open" routes, but performs access control for account/keyspace access.
+
 #### What upcoming features?
 
 - setting keys and values via HTTPS POST (pipes)
 - multiple commands transactions via HTTPS POST
-- retry requests that will not execute if previously successful e.g. so `lpush` commands are safe to retry if response not received
+- sequentially tagged requests to handle retries e.g. so `lpush` commands are safe to retry if response not received
 - role-based keyspace access control - admins can control which certs can access their private keyspaces, and if read-only or add-only
 - export and import to JSON: Entire keyspaces can be exported as a JSON file, or imported or created from such
 
