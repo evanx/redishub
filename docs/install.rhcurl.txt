@@ -2,6 +2,6 @@
 Try the following:
   cd 
   git clone git@github.com:evanx/redishub.git 
-  alias rh='~/redishub/bin/rhcurl.sh'
-  rh help
+  alias rh='~/redishub/bin/rhcurl.sh' # add this line to ~/.bashrc
+  rh help 
 
