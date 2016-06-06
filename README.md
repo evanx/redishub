@@ -209,13 +209,11 @@ For convenience other domains are provided for the "secure" server:
 - json.redishub.com - response content always `application/javascript`
 
 Short-term deployment plans:
-- `archive.redishub.com` for read-only authenticated access to warm data
+- Redis Cluster
 - `cdn.redishub.com` for read-only queries to open warm data via CloudFlare CDN
+- `archive.redishub.com` for read-only authenticated access to warm data
 
 Note that clients should follow HTTP redirects to the above domains when reading data.
-
-Medium-term deployment plans:
-- a Redis Cluster on load-balanced dedicated servers e.g. with 64GB each.
 
 As soon as warranted, we look forward to deploying Redis Clusters on multiple 64GB dedicated machines in multiple regions.
 
