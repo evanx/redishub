@@ -1,11 +1,13 @@
 
 ## RedisHub.com 
 
-Tag line: <i>The fast web database for every one.</i> It's fast because it's a RAM database, using Redis. It's for everyone because its easy to store text, numbers, JSON, lists, sets and sorted sets. It's a web database, because it's accessed via HTTPS. The pricing model is 50c per month for 50MB RAM e.g. a million records, if they average 50 characters each. But it's free for up to 10MB e.g. store a 250k records averaging 40 bytes each.
+Tag line: <i>The fast web database for every one.</i> It's fast because it's a RAM database, using Redis. It's for everyone because its easy to store text, numbers, JSON, lists, sets and sorted sets. It's a web database, because it's accessed via HTTPS. 
+
+The pricing model is 50c per month for 50MB RAM e.g. a million records, if they average 50 characters each. But it's free for up to 10MB e.g. store a 250k records averaging 40 bytes each.
 
 So sign up and imagine some cool use cases for storing data in memory in the cloud, always instantly available.
 
-Try: https://demo.redishub.com/create-ephemeral
+Try it for fun: https://demo.redishub.com/create-ephemeral
 
 Documentation: https://github.com/evanx/rquery
 
