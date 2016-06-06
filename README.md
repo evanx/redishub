@@ -1,7 +1,7 @@
 
 ## RedisHub.com
 
-<i>The RedisHub.com home page and `/about` are redirected to this page. Use the Back button to return.</i>
+<i>The RedisHub.com home page and `/about` are redirected to this page.</i>
 
 RedisHub's marketing tag line might be "the fast web database service."
 It's fast because it's a RAM database, using Redis. 
