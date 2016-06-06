@@ -5,9 +5,11 @@
 
 RedisHub is <i>a highly-available web database.</i> It's fast because it's a RAM database, using Redis. It's for everyone because its easy to store text, numbers, JSON, lists, sets and sorted sets, with more to come e.g. geographical data courtesy of Redis 3.2. It's a web database, because it's accessed via HTTPS. And it's highly available via Redis Cluster, published via CloudFlare CDN. 
 
-The pricing model is a 50c per month for 50MB RAM e.g. a million records, if they average 50 characters each. But it's free for up to 10MB e.g. store a 250k records averaging 40 bytes each, on us.
+The pricing model is a 50c per month for 30MB RAM e.g. a million records, if they were to average 30 characters each. But 10MB is free e.g. store 250k records averaging 40 characters each, on us.
 
-So sign up and imagine some cool use cases for storing data in memory in the cloud.
+So sign up and imagine some cool use cases for storing hot data in memory in the cloud, accessed via HTTP requests, and published via CDN.
+
+Any of your keyspaces can be public, secretly shared or private. Private keyspaces are accessed via authorised client certs only. Open keyspaces have a randomly-generated name that you can keep secret, or share. 
 
 Try it for fun: https://demo.redishub.com/create-ephemeral
 
@@ -167,7 +169,7 @@ I want to offer a free public utility in perpetuity to support most low-volume u
 
 #### What about higher volume usage?
 
-Users who wish to exceed the above-mentioned free limits, should become a "funder" contributing the equivalent of 50c per month to our Bitcoin wallet. Funders' limits are bumped up to 50MB RAM (Redis) storage and 50Gb transfer per month. You can double up as needed and contribute accordingly, e.g. $5 for 300MB, $50 for 3GB.
+Users who wish to exceed the above-mentioned free limits, should become a "funder" contributing the equivalent of 50c per month to our Bitcoin wallet. Funders' limits are bumped up to 30MB RAM (Redis) storage and 30Gb transfer per month. You can double up as needed and contribute accordingly, e.g. $5 for 300MB, $50 for 3GB.
 
 #### What value length limits?
 
@@ -194,7 +196,13 @@ Last but not least, I want to enter the Bot competion and maybe get lucky and wi
 
 It is a deployment of my Node project: https://github.com/evanx/rquery, using Nginx and Redis 2.8.
 
-We intend to serve data globally via the CloudFlare CDN on `cdn.redishub.com.` This is for URL-secured data e.g. that you specifically publish from account keyspaces. It will be cached by CloudFlare for 3 minutes, and so is "warm" data, i.e. regularly updated. Incidently, we classify `replica.redishub.com` as "hot" data, since it is updated continually via database replication, and not cached via CloudFlare. Moreover it performs client cert authentication to authorise account access.
+We serve data globally via the CloudFlare CDN on `cdn.redishub.com.` 
+This is for URL-secured data e.g. that you specifically publish from account keyspaces. 
+It will be cached by CloudFlare for 3 minutes, and so is "warm" data, i.e. regularly updated. 
+
+Incidently, we classify `replica.redishub.com` as "hot" data, since it is updated continually via database replication,
+and not cached via CloudFlare. 
+Moreover it performs client cert authentication to authorise account access.
 
 There are multiple production configurations deployed via Nginx:
 - demo.redishub.com - playground with short TTLs and no client auth
@@ -209,7 +217,7 @@ For convenience other domains are provided for the "secure" server:
 - json.redishub.com - response content always `application/javascript`
 
 Short-term deployment plans:
-- Redis Cluster
+- 64GB Redis Cluster
 - `cdn.redishub.com` for read-only queries to open warm data via CloudFlare CDN
 - `archive.redishub.com` for read-only authenticated access to warm data
 
