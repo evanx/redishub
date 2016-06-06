@@ -1,9 +1,9 @@
 
 ## RedisHub
 
-<i>RedisHub.com home page and `/about` are redirected to this page.</i>
+(The RedisHub.com home page and `/about` are redirected to this page.)
 
-Tag line: <i>A highly-available web database.</i> It's fast because it's a RAM database, using Redis. It's for everyone because its easy to store text, numbers, JSON, lists, sets and sorted sets, with more to come e.g. geographical data with Redis 3.2. It's a web database, because it's accessed via HTTPS. And it is highly available via Redis Cluster, published via CloudFlare CDN. 
+RedisHub is <i>a highly-available web database.</i> It's fast because it's a RAM database, using Redis. It's for everyone because its easy to store text, numbers, JSON, lists, sets and sorted sets, with more to come e.g. geographical data courtesy of Redis 3.2. It's a web database, because it's accessed via HTTPS. And it's highly available via Redis Cluster, published via CloudFlare CDN. 
 
 The pricing model is a 50c per month for 50MB RAM e.g. a million records, if they average 50 characters each. But it's free for up to 10MB e.g. store a 250k records averaging 40 bytes each, on us.
 
