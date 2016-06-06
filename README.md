@@ -3,9 +3,10 @@
 
 (The RedisHub.com home page and `/about` are redirected to this page.)
 
-RedisHub is <i>the fast web database.</i> 
+RedisHub's marketing tag line might be "the <i>fast web database</i> service."
 It's fast because it's a RAM database, using Redis. 
 It's a web database, because it's accessed via HTTPS. 
+In reality, it's just an Nginx deployment of our opensource Node microservice, for Redis multi-tenancy and access control.
 
 It's for everyone because its easy to store data by key, with lists, sets and sorted sets to keep track of things. There is more to come e.g. geographical data courtesy of Redis 3.2.
 
