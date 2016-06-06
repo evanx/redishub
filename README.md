@@ -11,7 +11,7 @@ Try it for fun: https://demo.redishub.com/create-ephemeral
 
 It's for everyone because its easy to store data by key, with lists, sets and sorted sets to keep track of things. There is more to come e.g. geographical data courtesy of Redis 3.2.
 
-Technically speaking, it's an Nginx deployment of our opensource Node microservice, for Redis multi-tenancy and access control. It is intended to be highly-available for reads via CDN, and also for writes, via Redis Cluster.
+Technically speaking, it's an Nginx deployment of our opensource Node microservice, for Redis multi-tenancy and access control. It is intended to be highly-available for reads via CDN, and also for writes, via Redis Cluster. It is available to client and server, web and mobile apps, authenticated and open. We define "open" as no client cert required, and "secure" as requiring a client cert. Client certs authorise access to account admin and keyspace endpoints.
 
 The pricing model is a 50c per month for 30MB RAM e.g. a million records, if they average 30 characters each. Our sustainable free service is limited to 10MB RAM, and 100 databases. So for example, you can store 250k records averaging 40 characters each, and perform millions of operations, across multiple databases, on us.
 
