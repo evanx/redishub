@@ -1,7 +1,7 @@
 
-## RedisHub
+## RedisHub.com
 
-<i>(The RedisHub.com home page and `/about` are redirected to this page.)</i>
+<i>The RedisHub.com home page and `/about` are redirected to this page.</i>
 
 RedisHub's marketing tag line might be "the fast web database service."
 It's fast because it's a RAM database, using Redis. 
@@ -13,7 +13,7 @@ It's for everyone because its easy to store data by key, with lists, sets and so
 
 Technically speaking, it's an Nginx deployment of our opensource Node microservice, for Redis multi-tenancy and access control. It is intended to be highly-available for reads via CDN, and also for writes, via Redis Cluster. It is available to client and server, web and mobile apps, authenticated and open. We define "open" as no client cert required, and "secure" as requiring a client cert. Client certs authorise access to account admin and keyspace endpoints.
 
-The pricing model is a 50c per month for 30MB RAM e.g. a million records, if they average 30 characters each. Our sustainable free service is limited to 10MB RAM, and 100 databases. So for example, you can store 250k records averaging 40 characters each, and perform millions of operations, across multiple databases, on us.
+The pricing model is a 50c per month for 30MB RAM e.g. a million records, if they average 30 characters each. Our sustainably free service is limited to a 10MB RAM peak. So for example, you can store 250k records averaging 40 characters each, and perform a million of operations, across 50 databases, on us.
 
 So sign up and imagine some cool use cases for storing hot data in memory in the cloud, accessed via HTTP requests, and published via CDN.
 
