@@ -7,11 +7,11 @@ RedisHub's marketing tag line might be "the fast web database service."
 It's fast because it's a RAM database, using Redis. 
 It's a web database, because it's accessed via HTTPS. 
 
-Technically speaking, it's an Nginx deployment of our opensource Node microservice, for Redis multi-tenancy and access control.
-
 It's for everyone because its easy to store data by key, with lists, sets and sorted sets to keep track of things. There is more to come e.g. geographical data courtesy of Redis 3.2.
 
-The pricing model is a 50c per month for 30MB RAM e.g. a million records, if they average 30 characters each. But 10MB is free e.g. store 250k records averaging 40 characters each, on us.
+Technically speaking, it's an Nginx deployment of our opensource Node microservice, for Redis multi-tenancy and access control.
+
+The pricing model is a 50c per month for 30MB RAM e.g. a million records, if they average 30 characters each. Our sustainable free service is limited to 10MB RAM, and 100 databases. So for example, you can store 250k records averaging 40 characters each, and perform millions of operations, across multiple databases, on us.
 
 So sign up and imagine some cool use cases for storing hot data in memory in the cloud, accessed via HTTP requests, and published via CDN.
 
