@@ -1,9 +1,9 @@
 
 ## RedisHub
 
-(The RedisHub.com home page and `/about` are redirected to this page.)
+<i>(The RedisHub.com home page and `/about` are redirected to this page.)</i>
 
-RedisHub's marketing tag line might be "the <i>fast web database</i> service."
+RedisHub's marketing tag line might be "the fast web database service."
 It's fast because it's a RAM database, using Redis. 
 It's a web database, because it's accessed via HTTPS. 
 In reality, it's just an Nginx deployment of our opensource Node microservice, for Redis multi-tenancy and access control.
