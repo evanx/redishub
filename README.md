@@ -1,5 +1,5 @@
 
-## RedisHub - fast web database
+## RedisHub.com (web database service)
 
 Try: https://demo.redishub.com/create-ephemeral
 
