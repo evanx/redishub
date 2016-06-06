@@ -1,11 +1,13 @@
 
-## RedisHub.com (web database service)
+## RedisHub.com 
+
+Tag line: <i>The fast web database for every one.</i>
 
 Try: https://demo.redishub.com/create-ephemeral
 
 Documentation: https://github.com/evanx/rquery
 
-Note that (insecure) HTTP access to all RedisHub domains, and also some other HTTPS URLs e.g. home page and `/about,` are redirected to this info page.
+Currrently the home page and `/about` are redirected to this page.
 
 
 ### Status
