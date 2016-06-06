@@ -7,6 +7,8 @@ RedisHub's marketing tag line might be "the fast web database service."
 It's fast because it's a RAM database, using Redis. 
 It's a web database, because it's accessed via HTTPS. 
 
+Try it for fun: https://demo.redishub.com/create-ephemeral
+
 It's for everyone because its easy to store data by key, with lists, sets and sorted sets to keep track of things. There is more to come e.g. geographical data courtesy of Redis 3.2.
 
 Technically speaking, it's an Nginx deployment of our opensource Node microservice, for Redis multi-tenancy and access control.
@@ -16,8 +18,6 @@ The pricing model is a 50c per month for 30MB RAM e.g. a million records, if the
 So sign up and imagine some cool use cases for storing hot data in memory in the cloud, accessed via HTTP requests, and published via CDN.
 
 Each keyspace you create can be public, shared or private. Private keyspaces are accessed via authorised client certs only. Open keyspaces have a randomly-generated name that you can keep secret, or share. 
-
-Try it for fun: https://demo.redishub.com/create-ephemeral
 
 Documentation: https://github.com/evanx/rquery
 
