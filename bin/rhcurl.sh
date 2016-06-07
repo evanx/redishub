@@ -163,9 +163,9 @@ rhcurl() {
   then
     curlpriv https://$domain/register-cert
     return $?
-  elif [ "$1" = 'register-account' ]
+  elif [ "$1" = 'create-account' -o "$1" = 'create-account-telegram' ]
   then
-    curlpriv https://$domain/register-account-telegram/$account
+    curlpriv https://$domain/create-account-telegram/$account
     return $?
   elif [ $# -eq 1 ]
   then
