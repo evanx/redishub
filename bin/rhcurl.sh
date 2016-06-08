@@ -153,7 +153,7 @@ rhcurl() {
     return $?
   elif [ "$1" = 'keyspaces' ]
   then
-    curlpriv https://$domain/account-keyspaces/$account
+    curlpriv https://$domain/keyspaces/$account
     return $?
   elif [ "$1" = 'create-ephemeral' ]
   then
