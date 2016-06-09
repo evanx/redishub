@@ -67,7 +67,7 @@ else
   rhwarn 'Try @redishub_bot /signup'
   if [ -t 1 ]
   then
-    rhinfo 'Enter your Telegram name:'
+    rhinfo 'Enter the authoratitive Telegram name for your RedisHub account:'
     read account
     help_cert
   fi
