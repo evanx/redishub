@@ -7,17 +7,22 @@ RedisHub's marketing tag line might be "the fast web database service."
 It's fast because it's a RAM database, using Redis. 
 It's a web database, because it's accessed via HTTPS. 
 
-Try it for fun: https://demo.redishub.com/create-ephemeral
-
 It's for everyone because its easy to store data by key, with lists, sets and sorted sets to keep track of things. There is more to come e.g. geographical data courtesy of Redis 3.2.
 
-Technically speaking, it's an Nginx deployment of our opensource Node microservice, for Redis multi-tenancy and access control. It is intended to be highly-available for reads via CDN, and also for writes, via Redis Cluster. It is available to client and server, web and mobile apps, authenticated and open. We define "open" as no client cert required, and "secure" as requiring a client cert. Client certs authorise access to account admin and keyspace endpoints.
+Try demo: https://demo.redishub.com/create-ephemeral. This endpoint creates a new ephemeral keyspace with a TTL of 10 minutes, for demonstration purposes. This is assigned an "unguessable" 12 character keyspace name. 
 
-The pricing model is a 50c per month for 30MB RAM e.g. a million records, if they average 30 characters each. Our sustainably free service is limited to a 10MB RAM peak. So for example, you can store 250k records averaging 40 characters each, and perform a million of operations, across 50 databases, on us.
+You can signup via our Telegram bot `@redishub_bot` via the command `/signup.` This will create an account as per your Telegram username. It will advise how to create an a client cert for https://secure.redishub.com/routes, and how to install our CLI `rhcurl` bash script. This is a wrapper of `curl` using your cert. 
+
+Technically speaking, RedisHub is an Nginx deployment of our opensource Node webserver for Redis multi-tenancy and access control. 
+It is intended to be highly-available for reads via CDN, and also for writes, via Redis Cluster. 
+It is available to client and server, web and mobile apps, authenticated and open. 
+We define "open" as no client cert required, and "secure" as requiring a client cert. 
+
+The pricing model is a 50c per month for 30MB RAM e.g. a million records, if they average 30 characters each. Our sustainably free service is limited to a 10MB RAM peak. So for example, you can store 250k records averaging 40 characters each, and perform a million of operations a month, across 50 databases, on us.
 
 So sign up and imagine some cool use cases for storing hot data in memory in the cloud, accessed via HTTP requests, and published via CDN.
 
-Each keyspace you create can be public, shared or private. Private keyspaces are accessed via authorised client certs only. Open keyspaces have a randomly-generated name that you can keep secret, or share. 
+Each keyspace you create can be public, shared or private. Account keyspaces are accessed via authorised client certs only. Open keyspaces have a randomly-generated name that you can keep secret, or share. 
 
 Documentation: https://github.com/evanx/rquery
 
