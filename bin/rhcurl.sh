@@ -67,6 +67,10 @@ kshelp1() {
 rhhelp() {
   rhhead "$serviceLabel $account "
   rhinfo 'Try:'
+  if [ ! -f ~/.redishub/live/registered ]
+  then
+    rhinfo 'rh register-cert # register the cert in ~/.redishub/live'
+  fi
   rhinfo 'rh create-ephemeral # create a new ephemeral keyspace'
   rhinfo 'rh tmp10days create-keyspace'
   rhinfo "rh keyspaces # list your account keyspaces"
