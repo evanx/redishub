@@ -13,6 +13,8 @@ Try demo: https://demo.redishub.com/create-ephemeral. This endpoint creates a ne
 
 You can signup via our Telegram bot `@redishub_bot` via the command `/signup.` This will create an account as per your Telegram username. It will advise how to create an a client cert for https://secure.redishub.com/routes, and how to install our CLI `rhcurl` bash script. This is a wrapper of `curl` using your cert. 
 
+<img src='http://evanx.github.io/images/rquery/rh.png'/>
+
 Technically speaking, RedisHub is an Nginx deployment of our opensource Node webserver for Redis multi-tenancy and access control. 
 It is intended to be highly-available for reads via CDN, and also for writes, via Redis Cluster. 
 It is available to client and server, web and mobile apps, authenticated and open. 
