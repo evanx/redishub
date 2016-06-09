@@ -16,7 +16,7 @@ shellArgs="${*}"
 tmp=~/.ttl/redishub/days/1
 if [ ! -d $tmp ] 
 then
-  rhwarn "Creating tmp directory: mkdir -p $tmp"
+  rhalert "Creating tmp directory: mkdir -p $tmp"
   rhinfo "Press Ctrl-C to abort, or Enter to continue..."
   read _continue
   mkdir -p $tmp
@@ -30,7 +30,7 @@ trap_error() {
   if [ $code -lt 63 ] 
   then
     rherror "line $lineno: error code $code"
-    rhinfo "Try using bash -x as follows:"
+    rhalert "Try using bash -x as follows:"
     rhinfo "bash -x ~/redishub/bin/rhcurl $shellArgs"
   fi
 }
@@ -47,14 +47,47 @@ trap trap_sigint SIGINT
 trap trap_sigterm SIGTERM 
 trap 'trap_error $? ${LINENO}' ERR
 
-if [ ! -r ~/.redishub/live/account ]
+account=''
+
+help_cert() {
+  rhhead 'Try curl the following script to create a client cert in ~/.redishub/live:'
+  rhinfo "curl -s 'https://redishub.com/cert-script/$account?id=$USER&noarchive' | more"
+  rhhead 'Review the script and then pipe it to bash as follows:'
+  rhinfo "curl -s 'https://redishub.com/cert-script/$account?id=$USER&noarchive' | bash"
+  rhnote "Change '&noarchive' to '&archive' to force archiving of existing dir first."
+}
+
+if [ -r ~/.redishub/live/account ]
 then
+  account=`cat ~/.redishub/live/account`
+  rhdebug "account=$account as per ~/.redishub/live/account"
+else
   rherror 'Missing file: ~/.redishub/live/account'
-  rherror 'This file must contain your RedisHub/Telegram account name'
-  rherror 'Try @redishub_bot /signup'
+  rhinfo 'This file must contain your RedisHub account name, matching an Telegram.org username.'
+  rhwarn 'Try @redishub_bot /signup'
+  if [ -t 1 ]
+  then
+    rhinfo 'Enter your Telegram name:'
+    read account
+    help_cert
+  fi
   exit 3
 fi
 
+
+if [ ! -f ~/.redishub/live/privcert ]
+then
+  rherror 'Missing file: ~/.redishub/live/privcert.pem'
+  rherror 'This PEM file must contain your RedisHub privkey and cert'
+  rhwarn 'Try @redishub_bot /signup'
+  help_cert
+  exit 3
+fi
+
+openssl x509 -text -in ~/.redishub/live/privcert.pem > $tmp.certInfo
+CN=`cat "$tmp.certInfo" | grep 'CN=' | sed -n 's/.*CN=\(\S*\),.*/\1/p' | head -1`
+OU=`cat "$tmp.certInfo" | grep 'OU=' | sed -n 's/.*OU=\(\S*\).*/\1/p' | head -1`
+O=`cat "$tmp.certInfo" | grep 'O=' | sed -n 's/.*O=\(\S*\).*/\1/p' | head -1`
 kshelp1() {
   local keyspace=$1
   rhinfo "rh $keyspace help # builtin help"
@@ -98,11 +131,6 @@ curlpriv() {
 }
 
 rhcurl() {
-  openssl x509 -text -in ~/.redishub/live/privcert.pem > $tmp.certInfo
-  CN=`cat "$tmp.certInfo" | grep 'CN=' | sed -n 's/.*CN=\(\S*\),.*/\1/p' | head -1`
-  OU=`cat "$tmp.certInfo" | grep 'OU=' | sed -n 's/.*OU=\(\S*\).*/\1/p' | head -1`
-  O=`cat "$tmp.certInfo" | grep 'O=' | sed -n 's/.*O=\(\S*\).*/\1/p' | head -1`
-  account=`cat ~/.redishub/live/account`
   if ! echo $O | grep -q "^${account}$"
   then
     echo "ERROR O name '$O' does not match account '$account'"

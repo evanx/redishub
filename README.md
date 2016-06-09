@@ -29,6 +29,7 @@ Each keyspace you create can be public, shared or private. Account keyspaces are
 
 Documentation: https://github.com/evanx/rquery
 
+<img src='http://evanx.github.io/images/rquery/rh-curl.png'/>
 
 ### Status
 

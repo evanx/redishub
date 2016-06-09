@@ -14,77 +14,85 @@ rhnone() {
   return 0
 }
 
-rhnote() {
+rhcomment() {
   if [ -t 1 ]
   then
-    >&2 echo -e "\e[90m${@}\e[39m"
+    >&2 echo -e "\e[90m${*}\e[39m"
   else
-    >&2 echo "DEBUG ${@}"
+    >&2 echo "DEBUG ${*}"
   fi
+}
+
+rhnote() {
+  rhcomment "$*"
 }
 
 rhdebug() {
   if [ "${RHLEVEL-}" = 'debug' ]
   then
-    rhnote "$@"
+    rhcomment "$@"
   fi
 }
 
 rhhead() {
   if [ -t 1 ]
   then
-    >&2 echo -e "\e[1m\e[36m${@}\e[39m\e[0m"
+    >&2 echo -e "\n\e[1m\e[36m${*}\e[39m\e[0m"
   else
-    >&2 echo "INFO ${@}"
+    >&2 echo "\n# ${*}"
   fi
 }
 
 rhinfo() {
   if [ -t 1 ]
   then
-    >&2 echo -e "\e[1m\e[94m${@}\e[39m\e[0m"
+    >&2 echo -e "\e[1m\e[94m${*}\e[39m\e[0m"
   else
-    >&2 echo "INFO ${@}"
+    >&2 echo "INFO ${*}"
   fi
 }
 
 rhprop() {
-   if [ -t 1 ]
-   then
-     >&2 echo -e "\e[1m\e[36m${1}\e[0m \e[39m${2}\e[39m\e[0m"
-   else
-     >&2 echo "$1 $2"
-   fi
+  if [ -t 1 ]
+  then
+    >&2 echo -e "\e[1m\e[36m${1}\e[0m \e[39m${2}\e[39m\e[0m"
+  else
+    >&2 echo "$1 $2"
+  fi
+}
+
+rhalert() {
+  if [ -t 1 ]
+  then
+    >&2 echo -e "\e[1m\e[33m${*}\e[39m\e[0m"
+  else
+    >&2 echo "WARNING ${*}"
+  fi
 }
 
 rhwarn() {
-   if [ -t 1 ]
-   then
-     >&2 echo -e "\e[1m\e[33m${@}\e[39m\e[0m"
-   else
-     >&2 echo "WARNING ${@}"
-   fi
+  rhalert "$*"
 }
 
 rherror() {
    if [ -t 1 ]
    then
-     >&2 echo -e "\e[1m\e[91m${@}\e[39m\e[0m"
+     >&2 echo -e "\e[1m\e[91m${*}\e[39m\e[0m"
    else
-     >&2 echo "ERROR ${@}"
+     >&2 echo "ERROR ${*}"
    fi
 }
 
 rhsection() {
   echo
   rhwarn `printf '%200s\n' | cut -b1-${RH_WIDTH} | tr ' ' -`
-  rhwarn "$@"
+  rhwarn "$*"
 }
 
 rhsub() {
   echo
   rhnote `printf '%200s\n' | cut -b1-${RH_WIDTH} | tr ' ' \.`
-  rhinfo "$@"
+  rhinfo "$*"
 }
 
 declare -A ErrorCodes=( 
