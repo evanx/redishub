@@ -4,8 +4,8 @@
 <i>The RedisHub.com home page and `/about` are redirected to this page.</i>
 
 RedisHub's marketing tag line might be "the fast web database service."
-It's fast because it's a RAM database, using Redis. 
-It's a <i>web database,</i> because it's accessed via HTTPS. 
+It's <b>fast</b> because it's a RAM database, using Redis. 
+It's a <b>web database,</b> because it's accessed via HTTPS. 
 
 It's for everyone because its easy to store data by key, with lists, sets and sorted sets to keep track of things. There is more to come e.g. geographical data courtesy of Redis 3.2.
 
