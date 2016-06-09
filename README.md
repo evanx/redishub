@@ -18,7 +18,8 @@ It is intended to be highly-available for reads via CDN, and also for writes, vi
 It is available to client and server, web and mobile apps, authenticated and open. 
 We define "open" as no client cert required, and "secure" as requiring a client cert. 
 
-The pricing model is a 50c per month for 30MB RAM e.g. a million records, if they average 30 characters each. Our sustainably free service is limited to a 10MB RAM peak. So for example, you can store 250k records averaging 40 characters each, and perform a million of operations a month, across 50 databases, on us.
+The pricing model is a 50c per month for 30MB RAM e.g. a million records, if they average 30 characters each. 
+Our sustainably free service is limited to a 10MB RAM peak. So for example, you can store 250k records averaging 40 characters each, and perform a million of operations a month, across 50 databases, on us.
 
 So sign up and imagine some cool use cases for storing hot data in memory in the cloud, accessed via HTTP requests, and published via CDN.
 
