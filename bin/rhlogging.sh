@@ -3,7 +3,12 @@ rhinit() {
   if [ -z "${BASH-}" ] 
   then
     >&2 echo 'Please use bash shell!'
-    exit 3
+    if [ $0 = 'bash' ] 
+    then
+      return 3
+    else
+      exit 3
+    fi
   fi
   RH_WIDTH=`tput cols`
 }

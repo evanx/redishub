@@ -63,7 +63,7 @@ then
   rhdebug "account=$account as per ~/.redishub/live/account"
 else
   rherror 'Missing file: ~/.redishub/live/account'
-  rhinfo 'This file must contain your RedisHub account name, matching an Telegram.org username.'
+  rhinfo 'This file must contain your RedisHub account name, matching a Telegram.org username.'
   rhwarn 'Try @redishub_bot /signup'
   if [ -t 1 ]
   then
@@ -75,7 +75,7 @@ else
 fi
 
 
-if [ ! -f ~/.redishub/live/privcert ]
+if [ ! -f ~/.redishub/live/privcert.pem ]
 then
   rherror 'Missing file: ~/.redishub/live/privcert.pem'
   rherror 'This PEM file must contain your RedisHub privkey and cert'

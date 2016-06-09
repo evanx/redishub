@@ -1,7 +1,7 @@
 
 Try the following:
   cd 
-  git clone git@github.com:evanx/redishub.git 
+  git clone https://github.com/evanx/redishub.git 
   alias rh='~/redishub/bin/rhcurl.sh' # add this line to ~/.bashrc
   rh help 
 
