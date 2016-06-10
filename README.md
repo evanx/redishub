@@ -11,23 +11,29 @@ It's for everyone because its easy to store data by key, with lists, sets and so
 
 Try demo: https://demo.redishub.com/create-ephemeral. This endpoint creates a new ephemeral keyspace with a TTL of 10 minutes, for demonstration purposes. This is assigned an "unguessable" 12 character keyspace name. 
 
+<img src='http://evanx.github.io/images/rquery/redishub-welcome.png'/>
+
 You can signup via our Telegram bot `@redishub_bot` via the command `/signup.` This will create an account as per your Telegram username. It will advise how to create an a client cert for https://secure.redishub.com/routes, and how to install our CLI `rhcurl` bash script. This is a wrapper of `curl` using your cert. 
 
 <img src='http://evanx.github.io/images/rquery/rh.png'/>
+
+Our sustainably free service is limited to a 10MB RAM peak. So for example, you can store 250k records averaging 40 characters each, and perform a million of operations a month, across 50 databases, on us.
+
+So sign up and imagine some cool use cases for storing hot data in memory in the cloud, accessed via HTTP requests, and published via CDN.
+
+- You can create keyspaces that are public, shared or private. 
+- "Open" keyspaces have a randomly-generated name that you can keep secret, or share.
+- Your account keyspaces are private by default
+- Account keyspaces are accessible via client certs you have authorised via our Telegram.org bot.
+
+If you need it, pricing will be of the order of 50c per month for 30MB RAM i.e. a million records if they average 30 characters each. The pricing model is estimated to be par with Digital Ocean prices, allowing for resources for our Node servers. (Fair warning that this pricing level might not be hosted on Digital Ocean or AWS.)
+
+Documentation: https://github.com/evanx/rquery
 
 Technically speaking, RedisHub is an Nginx deployment of our opensource Node webserver for Redis multi-tenancy and access control. 
 It is intended to be highly-available for reads via CDN, and also for writes, via Redis Cluster. 
 It is available to client and server, web and mobile apps, authenticated and open. 
 We define "open" as no client cert required, and "secure" as requiring a client cert. 
-
-The pricing model is a 50c per month for 30MB RAM e.g. a million records, if they average 30 characters each. 
-Our sustainably free service is limited to a 10MB RAM peak. So for example, you can store 250k records averaging 40 characters each, and perform a million of operations a month, across 50 databases, on us.
-
-So sign up and imagine some cool use cases for storing hot data in memory in the cloud, accessed via HTTP requests, and published via CDN.
-
-Each keyspace you create can be public, shared or private. Account keyspaces are accessed via authorised client certs only. Open keyspaces have a randomly-generated name that you can keep secret, or share. 
-
-Documentation: https://github.com/evanx/rquery
 
 <img src='http://evanx.github.io/images/rquery/rh-curl.png'/>
 
