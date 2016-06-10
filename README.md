@@ -57,7 +57,7 @@ Private keyspaces can be created. They are secured using self-signed client cert
 
 Links are shown in color. Otherwise click anywhere on the iconized header to go "back" a level e.g. to your keyspace home, `/routes` and finally here.
 
-For example, in the following screenshot, click anywhere on top row, containing the database tick icon, the "hub" account name, and the ephemeral keyspace label.
+For example, in the following screenshot, click anywhere on top row, containing the database icon, the "hub" account name, and the ephemeral keyspace label.
 
 <img src='http://evanx.github.io/images/rquery/redishub-welcome.png'/>
 
