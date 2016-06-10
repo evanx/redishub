@@ -57,6 +57,8 @@ Private keyspaces can be created. They are secured using self-signed client cert
 
 Links are shown in color. Otherwise click anywhere on the iconized header to go "back" e.g. to your keyspace home, `/routes` and finally here.
 
+<img src='http://evanx.github.io/images/rquery/redishub-welcome.png'/>
+
 #### How do I try Redis commands?
 
 Try: https://demo.redishub.com/create-ephemeral
