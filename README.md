@@ -32,6 +32,8 @@ Note that client certs are:
 - Our bot will advise the URL of a custom bash script to create client certs using `openssl`
 - client certs are authorised by account admins via our Telegram.org bot
 
+<img src='http://evanx.github.io/images/rquery/rh-curl.png'/>
+
 The service is intended to be priced roughly according to Digital Ocean infrastructure costs, as a market indicator. 
 Your account can be topped up via virtual currency where "50MB" bundles are roughly 50c USD per month.
 
@@ -42,7 +44,16 @@ It is intended to be highly-available for reads via CDN, and also for writes, vi
 It is available to client and server, web and mobile apps, authenticated and open. 
 We define "open" as no client cert required, and "secure" as requiring a client cert. 
 
-<img src='http://evanx.github.io/images/rquery/rh-curl.png'/>
+A client accessing a keyspace might be:
+- our `rhcurl` bash CLI which is `curl` wrapper
+- the RedisHub.com web console
+- a client-side webapp fetching content
+- mobile app e.g. updating the state of a multi-player game
+- internet-connected device e.g. submitting metrics, error and status reports
+- orchestration service for scheduling microservices
+- microservice discovering its configuration 
+- server-side script to record append-only events offsite
+- server-side app e.g. communicating with with external partners
 
 ### Status
 
