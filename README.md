@@ -3,8 +3,6 @@
 
 Note that this service is currently being rebranded from <b>RedisHub.com to WebServa.com</b> - see: https://github.com/webserva/home
 
-<i>The WebServa.com home page and `/about` are redirected to this page.</i>
-
 WebServa's marketing tag line might be "the fast web database service."
 It's <b>fast</b> because it's a RAM database, using Redis. 
 It's a <b>web database,</b> because it's accessed via HTTPS. 
