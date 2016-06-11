@@ -23,7 +23,7 @@ So sign up and imagine some cool use cases for storing data in memory in the clo
 - "open" keyspaces have a randomly-generated name that you can keep secret, or share
 - keyspaces you create on account are private by default
 - private access is via client certs you have authorised on your account 
-- you can publish specific keyspaces for read-only access to the web via CloudFlare CDN
+- you can publish specific keyspaces for read-only web access via CloudFlare CDN
 - "permutable" keyspaces can be shared e.g. for registries, message hubs and metrics aggregators
 
 Note that client certs are:
