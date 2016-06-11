@@ -15,7 +15,7 @@ Try demo: https://demo.redishub.com/create-ephemeral. This endpoint creates a ne
 
 You can signup via our Telegram bot `@redishub_bot` via the command `/signup.` This will create an account as per your Telegram username. It will advise how to create an a client cert for https://secure.redishub.com/routes, and how to install our CLI `rhcurl` bash script. This is a wrapper of `curl` using your cert. 
 
-<img src='http://evanx.github.io/images/rquery/rh.png'/>
+<img src='http://evanx.github.io/images/rquery/rhbot-signup.png'/>
 
 Our "10MB" service is free. This service bundle includes 10MB peak RAM and 20GB monthly transfer. So for example, you can store 250k records averaging 40 characters each, on us. 
 
@@ -25,6 +25,8 @@ So sign up and imagine some cool use cases for storing data in memory in the clo
 - private access is via client certs you have authorised on your account 
 - you can publish specific keyspaces for read-only web access via CloudFlare CDN
 - "permutable" keyspaces can be shared e.g. for registries, message hubs and metrics aggregators
+
+<img src='http://evanx.github.io/images/rquery/rh.png'/>
 
 Note that client certs are:
 - self-signed e.g. created using `openssl` with your account name as the Organisation (O name)
