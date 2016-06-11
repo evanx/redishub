@@ -1,7 +1,7 @@
 
-## WebServa.com / WebServa.com
+## WebServa.com
 
-Note that this service is currently being rebranded from <b>WebServa.com to WebServa.com</b> - see: https://github.com/webserva/home
+Note that this service is currently being rebranded from <b>RedisHub.com to WebServa.com</b> - see: https://github.com/webserva/home
 
 <i>The WebServa.com home page and `/about` are redirected to this page.</i>
 
