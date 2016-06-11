@@ -17,16 +17,23 @@ You can signup via our Telegram bot `@redishub_bot` via the command `/signup.` T
 
 <img src='http://evanx.github.io/images/rquery/rh.png'/>
 
-Our sustainably free service is limited to a 10MB RAM peak. So for example, you can store 250k records averaging 40 characters each, and perform a million of operations a month, across 50 databases, on us.
+Our "10MB" service is free. This service bundle includes 10MB peak RAM and 20GB monthly transfer. So for example, you can store 250k records averaging 40 characters each, on us. 
 
-So sign up and imagine some cool use cases for storing hot data in memory in the cloud, accessed via HTTP requests, and published via CDN.
+So sign up and imagine some cool use cases for storing hot data in memory in the cloud, publishable in volume via CDN, or kept private:
+- "open" keyspaces have a randomly-generated name that you can keep secret, or share
+- keyspaces you create on account are strictly privately accessible by default
+- private access is via client certs you have authorised on your account 
+- you can publish specific keyspaces for read-only access to the web via CloudFlare CDN
+- "permutable" keyspaces can be shared e.g. for registries, message hubs and metrics aggregators
 
-- You can create keyspaces that are public, shared or private. 
-- "Open" keyspaces have a randomly-generated name that you can keep secret, or share.
-- Your account keyspaces are private by default
-- Account keyspaces are accessible via client certs you have authorised via our Telegram.org bot.
+Note that client certs are:
+- self-signed e.g. created using `openssl` with your account name as the Organisation (O name)
+- the Organisational Unit (OU name) is the role of the cert e.g. `admin`
+- Our bot will advise the URL of a custom bash script to create client certs using `openssl`
+- client certs are authorised by account admins via our Telegram.org bot
 
-If you need it, pricing will be of the order of 50c per month for 30MB RAM i.e. a million records if they average 30 characters each. The pricing model is estimated to be par with Digital Ocean prices, allowing for resources for our Node servers. (Fair warning that this pricing level might not be hosted on Digital Ocean or AWS.)
+The service is intended to be priced roughly according to Digital Ocean infrastructure costs, as a market indicator. 
+Your account can be topped up via virtual currency where "50MB" bundles are roughly 50c USD per month.
 
 Documentation: https://github.com/evanx/rquery
 
@@ -40,6 +47,22 @@ We define "open" as no client cert required, and "secure" as requiring a client 
 ### Status
 
 UNSTABLE, INCOMPLETE
+
+### Immiment API additions
+
+For shorter URLs, we intend the support the following endpoints by the end of June:
+
+- `redishub.com/:account/:keyspace` - openly published keyspaces 
+- `secure.redishub.com/:account/:keyspace` - strictly privately secured keyspaces
+
+We wish to support specific "perspectives" on keyspaces:
+- accessing raw data - e.g. JSON
+- schema - specifies required data elements for a class of keyspaces
+- HTML forms - edit and validate hash fields according to a specified schema
+- Tabular data - e.g. for rendering consumption reports and account statements
+- charts - for rendering dashboards of pre-defined metrics
+- Schema.org content - for rendering blog articles according to a specified template
+- compositional perspective - template for the 
 
 ### FAQ
 
