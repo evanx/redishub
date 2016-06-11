@@ -1,6 +1,8 @@
 
 ## RedisHub.com
 
+<b>Note: This service is in the process of being rebranded. Please see: https://github.com/webserva/home</b>
+
 <i>The RedisHub.com home page and `/about` are redirected to this page.</i>
 
 RedisHub's marketing tag line might be "the fast web database service."
