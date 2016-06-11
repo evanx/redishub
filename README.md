@@ -1,11 +1,11 @@
 
-## RedisHub.com
+## WebServa.com / WebServa.com
 
-Note that this service is currently being rebranded from <b>RedisHub.com to WebServa.com</b> - see: https://github.com/webserva/home
+Note that this service is currently being rebranded from <b>WebServa.com to WebServa.com</b> - see: https://github.com/webserva/home
 
-<i>The RedisHub.com home page and `/about` are redirected to this page.</i>
+<i>The WebServa.com home page and `/about` are redirected to this page.</i>
 
-RedisHub's marketing tag line might be "the fast web database service."
+WebServa's marketing tag line might be "the fast web database service."
 It's <b>fast</b> because it's a RAM database, using Redis. 
 It's a <b>web database,</b> because it's accessed via HTTPS. 
 
@@ -43,14 +43,14 @@ Your account can be topped up via virtual currency where "50MB" bundles are roug
 
 Documentation: https://github.com/evanx/rquery
 
-Technically speaking, RedisHub is an Nginx deployment of our opensource Node webserver for Redis multi-tenancy and access control. 
+Technically speaking, WebServa is an Nginx deployment of our opensource Node webserver for Redis multi-tenancy and access control. 
 It is intended to be highly-available for reads via CDN, and also for writes, via Redis Cluster. 
 It is available to client and server, web and mobile apps, authenticated and open. 
 We define "open" as no client cert required, and "secure" as requiring a client cert. 
 
 A client accessing a keyspace might be:
 - our `rhcurl` bash CLI which is `curl` wrapper
-- the RedisHub.com web console
+- the WebServa.com web console
 - a client-side webapp fetching content
 - mobile app e.g. updating the state of a multi-player game
 - internet-connected device e.g. submitting metrics, error and status reports
@@ -81,11 +81,11 @@ We wish to support specific "perspectives" on keyspaces:
 
 ### FAQ
 
-#### What is RedisHub?
+#### What is WebServa?
 
 It is envisaged as online hub of Redis keyspaces accessed via HTTPS. These can be private, public or shared. We support various Redis commands for lists, sets etc, although not all (yet).
 
-RedisHub is intended as a serverless database, cache and messaging hub, accessed via HTTPS.
+WebServa is intended as a serverless database, cache and messaging hub, accessed via HTTPS.
 
 Currently, ephemeral keyspaces are created with a randomly generated name, which you can keep secret, or share.
 
@@ -124,7 +124,7 @@ Having said that, I love SQL too and may use PostgreSQL to drive `pg.redishub.co
 
 Certainly Redis is the leading caching server. But actually Redis is an in-memory "data structure server." As such, it has many use cases, including fast shareable data storage, analytics, geo-spatial processing, synchronisation, queuing and messaging.
 
-#### How do I generate an RedisHub admin cert?
+#### How do I generate an WebServa admin cert?
 
 You can use `@redishub_bot /signup` which will propose a bash script to generate a `privcert.pem` (e.g. for curl CLI) and `privcert.p12` to import into your browser.
 
@@ -164,7 +164,7 @@ Ideally the archive should be seamless, although read-only requests might be HTT
 - `replica.redishub.com` for data that has been replicated since it was last modified
 
 
-#### Who is RedisHub?
+#### Who is WebServa?
 
 I'm a web developer based in Cape Town, working on content sites for a news publisher, using Nginx, Node, React and Redis. In my spare time, I work on my Github projects. Previously, I've been a Java enterprise developer, PostgreSQL DBA and Linux engineer.
 
@@ -173,9 +173,9 @@ Find me at https://twitter.com/@evanxsummers.
 
 #### Why are you doing this?
 
-RedisHub is my pet R&D project, to build something cool with my favourite toys, and thereby explore security, devops, microservices, monitoring, logging, metrics and messaging.
+WebServa is my pet R&D project, to build something cool with my favourite toys, and thereby explore security, devops, microservices, monitoring, logging, metrics and messaging.
 
-RedisHub is already "mission accomplished" in the sense that it can be used as a "playground" for Redis commands, whilst also providing authenticated access to secure keyspaces for some professional use cases I have in mind. However I'm inspired to take it further.
+WebServa is already "mission accomplished" in the sense that it can be used as a "playground" for Redis commands, whilst also providing authenticated access to secure keyspaces for some professional use cases I have in mind. However I'm inspired to take it further.
 
 
 #### Why does the site redirect to this Github page?
@@ -190,15 +190,15 @@ Having said that, you can:
 
 #### Why do my client certs have CN and OU names only?
 
-Our scripts assist with generating RedisHub client certs with DN defaults such that:
+Our scripts assist with generating WebServa client certs with DN defaults such that:
 - CN - unique identity (user/device ID) granted access to the account
 - OU - role for access by this cert
-- O - RedisHub account as per an individual or organisation
+- O - WebServa account as per an individual or organisation
 - Other location fields are optionally specified
 
-Note that an authoritative Telegram.org account is linked to the RedisHub account. Therefore an organisation, like an individual, should create its own Telegram.org account, e.g. using a prepaid SIM.
+Note that an authoritative Telegram.org account is linked to the WebServa account. Therefore an organisation, like an individual, should create its own Telegram.org account, e.g. using a prepaid SIM.
 
-#### What are RedisHub lambdas?
+#### What are WebServa lambdas?
 
 These are envisaged as Redis-based lambdas that can be composed into microservices and apps.
 I'm choosing to misdefine "lambdas" as server-side components which access one or more keyspaces.
@@ -214,16 +214,16 @@ Incidently, as an former PostgreSQL DBA for a SaaS application, I'm not convince
 
 #### Why use a hosted Redis service rather than one's own?
 
-Actually RedisHub doesn't offer hosted Redis instances (yet).
+Actually WebServa doesn't offer hosted Redis instances (yet).
 It addresses some use cases where an online serverless storage/messaging service is convenient.
 
 #### Will you ever offer a hosted Redis service?
 
 There are other PaaS vendors that offer hosted Redis at scale, e.g. AWS ElastiCache, RedisLabs, OpenRedis and RedisGreen.
 
-I wish to experiment with orchestrating Redis instances, clusters and replicas, to automate RedisHub itself. However I'm more interested in other things e.g. auto-archival and serverless lamdbas, than Redis hosting per se.
+I wish to experiment with orchestrating Redis instances, clusters and replicas, to automate WebServa itself. However I'm more interested in other things e.g. auto-archival and serverless lamdbas, than Redis hosting per se.
 
-#### How will RedisHub support its lambdas?
+#### How will WebServa support its lambdas?
 
 The platform should handle identity, auth, configuration, deployment, logging, messaging, monitoring and scaling. A notable simplication is that Redis will be used across the board for all these concerns.
 
@@ -251,7 +251,7 @@ Chat `/signup` to `@redishub_bot` on https://web.telegram.org. That will propose
 
 I haven't yet built a typical SaaS web site (yet) with signup, signin with Google, etc.
 
-Currently, your Telegram username is used for your private RedisHub account name.
+Currently, your Telegram username is used for your private WebServa account name.
 
 #### Why Telegram.org?
 
@@ -260,7 +260,7 @@ Also I have a Ubuntu phone, which has Telegram.
 Last but not least, I want to enter the Bot competion and maybe get lucky and win one of those prizes.
 "Then we'll be millionaires!" as Homer says ;)
 
-#### What technology is behind a RedisHub keyspace?
+#### What technology is behind a WebServa keyspace?
 
 It is a deployment of my Node project: https://github.com/evanx/rquery, using Nginx and Redis 2.8.
 
@@ -293,11 +293,11 @@ Note that clients should follow HTTP redirects to the above domains when reading
 
 As soon as warranted, we look forward to deploying Redis Clusters on multiple 64GB dedicated machines in multiple regions.
 
-Incidently, early adopters who pay for more resources e.g. 50c per 32MB RAM, will become co-owners of RedisHub via a sharepool. The shareholding of the pool will be computed by an algorithm.
+Incidently, early adopters who pay for more resources e.g. 50c per 32MB RAM, will become co-owners of WebServa via a sharepool. The shareholding of the pool will be computed by an algorithm.
 
 #### What financial technology is planned?
 
-For a given point in time e.g. a specific month end, the resource algo will reduce multiple time series, including the virtual currency transfers (credits) to a RedisHub wallet, reconciled with the actual resource costs (debits) of the account associated with the sender's virtual currency address. It thereby generates an account statement.
+For a given point in time e.g. a specific month end, the resource algo will reduce multiple time series, including the virtual currency transfers (credits) to a WebServa wallet, reconciled with the actual resource costs (debits) of the account associated with the sender's virtual currency address. It thereby generates an account statement.
 
 Similarly, the shareholding algo will determine the virtual shareholding of each account.
 
@@ -307,7 +307,7 @@ Clearly it must also reward pre-payment, since our financial surplus provides fi
 
 The dividend algo might also be a mechanism for share transfers, whereby account holders provide buy/sell orders for price/volume. If their buy volume is zero, then they are paid the dividend in full. Otherwise their buy/sell orders are settled, and their dividend recalculated.
 
-I'm still working out the details, but the reality is that customers are "funders." The plan is that funders collectively own 49% of RedisHub. I own 51%, make executive decisions and provide regular reports to shareholders i.e. a newsletter to customers :) Watch out for announcements via https://twitter.com/@evanxsummers.
+I'm still working out the details, but the reality is that customers are "funders." The plan is that funders collectively own 49% of WebServa. I own 51%, make executive decisions and provide regular reports to shareholders i.e. a newsletter to customers :) Watch out for announcements via https://twitter.com/@evanxsummers.
 
 #### What are the domains demo, open, secure et al?
 
@@ -350,7 +350,7 @@ A keyspace is an online database accessible via Redis-style commands, and can be
 
 User stories:
 - Use a free hosted Redis "keyspace" for low-volume ephemeral purposes
-- Deploy your own private "redishub" instance using the `rquery` opensource implementation, as used by RedisHub
+- Deploy your own private "redishub" instance using the `rquery` opensource implementation, as used by WebServa
 
 Potential uses of keyspaces:
 - serverless backend database
@@ -367,10 +367,10 @@ Future user stories:
 - Use disk-based keyspaces for archival
 - Manage auto-archival of keys
 - Enable a durable transaction log facility with playback for recovery
-- Deploy RedisHub "lambdas" to `lambdas.redishub.com` to build Redis-driven serverless backends
-- Page lambdas generate web pages from React templates, populated with data from RedisHub
+- Deploy WebServa "lambdas" to `lambdas.redishub.com` to build Redis-driven serverless backends
+- Page lambdas generate web pages from React templates, populated with data from WebServa
 
-RedisHub lambdas are special ES2016 scripts that use keyspaces for:
+WebServa lambdas are special ES2016 scripts that use keyspaces for:
 - pulling their configuration
 - pushing logging messages e.g. info and errors
 - pushing metrics e.g. for response time histograms, user geo distribution, et al
