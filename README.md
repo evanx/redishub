@@ -19,16 +19,16 @@ You can signup via our Telegram bot `@redishub_bot` via the command `/signup.` T
 
 Our "10MB" service is free. This service bundle includes 10MB peak RAM and 20GB monthly transfer. So for example, you can store 250k records averaging 40 characters each, on us. 
 
-So sign up and imagine some cool use cases for storing hot data in memory in the cloud, publishable in volume via CDN, or kept private:
+So sign up and imagine some cool use cases for storing data in memory in the cloud, publishable in volume via CDN, or kept private:
 - "open" keyspaces have a randomly-generated name that you can keep secret, or share
-- keyspaces you create on account are strictly privately accessible by default
+- keyspaces you create on account are private by default
 - private access is via client certs you have authorised on your account 
 - you can publish specific keyspaces for read-only access to the web via CloudFlare CDN
 - "permutable" keyspaces can be shared e.g. for registries, message hubs and metrics aggregators
 
 Note that client certs are:
 - self-signed e.g. created using `openssl` with your account name as the Organisation (O name)
-- the Organisational Unit (OU name) is the role of the cert e.g. `admin`
+- the Organisational Unit (OU name) is the role of the cert e.g. `admin` or `webuser`
 - Our bot will advise the URL of a custom bash script to create client certs using `openssl`
 - client certs are authorised by account admins via our Telegram.org bot
 
