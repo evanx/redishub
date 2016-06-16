@@ -1,7 +1,7 @@
 
 set -u -e
 
-serviceLabel=${RHLABEL-RedisHub}
+serviceLabel=${RHLABEL-WebServa}
 domain=${RHCLI-cli.redishub.com}
 cdn=${RHCLICDN-cli.redishub.com}
 
@@ -13,7 +13,7 @@ shellArgs="${*}"
 
 . ~/redishub/bin/rhlogging.sh
 
-tmp=~/.ttl/redishub/days/1
+tmp=~/.ttl/webserva/days/1
 if [ ! -d $tmp ] 
 then
   rhalert "Creating tmp directory: mkdir -p $tmp"
@@ -50,19 +50,19 @@ trap 'trap_error $? ${LINENO}' ERR
 account=''
 
 help_cert() {
-  rhhead 'Try curl the following script to create a client cert in ~/.redishub/live:'
+  rhhead 'Try curl the following script to create a client cert in ~/.webserva/live:'
   rhinfo "curl -s 'https://redishub.com/cert-script/$account?id=$USER&noarchive' | more"
   rhhead 'Review the script and then pipe it to bash as follows:'
   rhinfo "curl -s 'https://redishub.com/cert-script/$account?id=$USER&noarchive' | bash"
   rhnote "Change '&noarchive' to '&archive' to force archiving of existing dir first."
 }
 
-if [ -r ~/.redishub/live/account ]
+if [ -r ~/.webserva/live/account ]
 then
-  account=`cat ~/.redishub/live/account`
-  rhdebug "account=$account as per ~/.redishub/live/account"
+  account=`cat ~/.webserva/live/account`
+  rhdebug "account=$account as per ~/.webserva/live/account"
 else
-  rherror 'Missing file: ~/.redishub/live/account'
+  rherror 'Missing file: ~/.webserva/live/account'
   rhinfo 'This file must contain your RedisHub account name, matching a Telegram.org username.'
   rhwarn 'Try @redishub_bot /signup'
   if [ -t 1 ]
@@ -75,16 +75,16 @@ else
 fi
 
 
-if [ ! -f ~/.redishub/live/privcert.pem ]
+if [ ! -f ~/.webserva/live/privcert.pem ]
 then
-  rherror 'Missing file: ~/.redishub/live/privcert.pem'
+  rherror 'Missing file: ~/.webserva/live/privcert.pem'
   rherror 'This PEM file must contain your RedisHub privkey and cert'
   rhwarn 'Try @redishub_bot /signup'
   help_cert
   exit 3
 fi
 
-openssl x509 -text -in ~/.redishub/live/privcert.pem > $tmp.certInfo
+openssl x509 -text -in ~/.webserva/live/privcert.pem > $tmp.certInfo
 CN=`cat "$tmp.certInfo" | grep 'CN=' | sed -n 's/.*CN=\(\S*\),.*/\1/p' | head -1`
 OU=`cat "$tmp.certInfo" | grep 'OU=' | sed -n 's/.*OU=\(\S*\).*/\1/p' | head -1`
 O=`cat "$tmp.certInfo" | grep 'O=' | sed -n 's/.*O=\(\S*\).*/\1/p' | head -1`
@@ -100,9 +100,9 @@ kshelp1() {
 rhhelp() {
   rhhead "$serviceLabel $account "
   rhinfo 'Try:'
-  if [ ! -f ~/.redishub/live/registered ]
+  if [ ! -f ~/.webserva/live/registered ]
   then
-    rhinfo 'rh register-cert # register the cert in ~/.redishub/live'
+    rhinfo 'rh register-cert # register the cert in ~/.webserva/live'
   fi
   rhinfo 'rh create-ephemeral # create a new ephemeral keyspace'
   rhinfo 'rh tmp10days create-keyspace'
@@ -120,14 +120,14 @@ kshelp() {
   rhinfo "rh $keyspace \$command \$key ...params # e.g. set, get, sadd, hgetall et al"
   rhinfo "rh $keyspace ttl \$key"
   rhinfo "rh routes # more online help"
-  rhdebug "curl -s -E ~/.redishub/live/privcert.pem https://$domain/ak/$account/$keyspace"
+  rhdebug "curl -s -E ~/.webserva/live/privcert.pem https://$domain/ak/$account/$keyspace"
   exit 253
 }
 
 curlpriv() {
   [ $# -eq 1 ]
-  rhdebug "curl -s -E ~/.redishub/live/privcert.pem '$1'"
-  curl -s -E ~/.redishub/live/privcert.pem "$1"
+  rhdebug "curl -s -E ~/.webserva/live/privcert.pem '$1'"
+  curl -s -E ~/.webserva/live/privcert.pem "$1"
 }
 
 rhcurl() {
@@ -146,7 +146,7 @@ rhcurl() {
     elif echo "$1" | grep -q '^https'
     then
       url="$1"
-    elif echo "$1" | grep -q '^[a-z]*\.redishub.com'
+    elif echo "$1" | grep -q '^[a-z].*\.com$'
     then
       url="https://$1"
     fi
@@ -157,7 +157,6 @@ rhcurl() {
       return $?
     fi
   fi
-  local domain=${RHCLI-cli.redishub.com}
   rhdebug domain=$domain account=$account
   local uri=''
   if [ $# -eq 0 ]
