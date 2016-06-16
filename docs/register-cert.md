@@ -14,7 +14,11 @@ With this invalid placeholder, you can check its `sha1sum` at least.
 ``shell
 curl -s https://redishub.com/cert-script/ACCOUNT | sha1sum
 ```
-which should give the hash `56e6bb9d5f8555b9eec19f34cfeafdf67ae87ced.` If it does not, then please report this an issue, e.g. this page should be updated, most likely.
+which should give the following hash:
+```
+9ff82c5f9ae78587cdb7785ed8554cf4ab79cc95
+```
+If it does not, then please report this an issue, e.g. this page should be updated, most likely.
 
 In general, we recommend reviewing any script first before executing it as follows:
 ``shell
@@ -57,10 +61,21 @@ The content of this script is as follows when run with a placeholder `ACCOUNT` a
   certWebhook="${serviceUrl}/create-account-telegram/${account}"
 
   mkdir -p ~/.redishub # ensure dir exists
+  curl -s https://raw.githubusercontent.com/evanx/redishub/bin/cert-script.sh 
+  echo 'Press Ctrl-C to abort, Enter to execute'
+  read _continue
+  curl -s https://raw.githubusercontent.com/evanx/redishub/bin/cert-script.sh | bash
+)
+```
 
-  # TODO curl following from static stable versioned script from https://raw.githubusercontent.com/webserva/home
-  if mkdir ${dir} && cd $_
-  then # mkdir ok so directory did not exist
+That is effectively appended with a static version of the script as follows:
+```
+  if [ ! -d ${dir} ]
+  then
+    echo "Directory ${dir} already exists. Try add '?archive' query to the URL."
+  else # directory does not exist
+    mkdir ${dir}
+    cd $_
     echo "${account}" > account
     if openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
       -subj "/CN=${CN}/OU=${OU}/O=${O}" \
@@ -90,9 +105,7 @@ The content of this script is as follows when run with a placeholder `ACCOUNT` a
       fi
     fi
   fi
-)
 ```
-
 
 ### How to register a client cert 
 
