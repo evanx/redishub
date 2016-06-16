@@ -16,7 +16,7 @@ curl -s https://redishub.com/cert-script/ACCOUNT | sha1sum
 ```
 which should give the following hash:
 ```
-9ff82c5f9ae78587cdb7785ed8554cf4ab79cc95
+dede05d7dbbad06e94794557cc89c84f1a618a03
 ```
 If it does not, then please report this an issue, e.g. this page should be updated, most likely.
 
