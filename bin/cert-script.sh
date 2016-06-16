@@ -1,4 +1,3 @@
-  mkdir ${dir} && cd $_ # script should error exit if dir exists
   echo "${account}" > account
   if openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
     -subj "/CN=${CN}/OU=${OU}/O=${O}" \
