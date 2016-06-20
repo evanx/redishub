@@ -1,7 +1,11 @@
 
-## WebServa.com
+## evanx/RedisHub
 
-Note that this service is currently being rebranded from <b>RedisHub.com to WebServa.com</b> - see: https://github.com/webserva/home
+Note that this service is currently being rebranded from <b>RedisHub.com to WebServa.com</b> 
+
+Please be redirected to: https://github.com/webserva/webserva
+
+![Landing screenshot](http://evanx.github.io/images/rquery/ws040-ephemeral.png)
 
 WebServa's marketing tag line might be "the fast web database service."
 It's <b>fast</b> because it's a RAM database, using Redis. 
