@@ -1,5 +1,5 @@
 
-## evanx/RedisHub
+## evanx/redishub
 
 Note that this service is currently being rebranded from <b>RedisHub.com to WebServa.com</b> 
 
