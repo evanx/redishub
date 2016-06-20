@@ -1,7 +1,7 @@
 
 ## evanx/redishub
 
-Note that this service is currently being rebranded from <b>RedisHub.com to WebServa.com</b> 
+Note that this service was rebranded in June 2016 from <b>RedisHub.com to WebServa.com</b> 
 
 For "About" page, please be redirected to: https://github.com/webserva/webserva
 
