@@ -3,7 +3,9 @@
 
 Note that this service is currently being rebranded from <b>RedisHub.com to WebServa.com</b> 
 
-Please be redirected to: https://github.com/webserva/webserva
+For "About" page, please be redirected to: https://github.com/webserva/webserva
+
+Try the demo to create a "ephemeral" keyspace: https://demo.webserva.com/create-ephemeral
 
 ![Landing screenshot](http://evanx.github.io/images/rquery/ws040-ephemeral.png)
 
