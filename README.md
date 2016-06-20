@@ -20,6 +20,7 @@ Try demo: https://demo.webserva.com/create-ephemeral. This endpoint creates a ne
 You can signup via our Telegram bot `@WebServaBot` via the command `/signup.` This will create an account as per your Telegram username. It will advise how to create an a client cert for https://secure.webserva.com i.e. for private keyspaces.
 
 ![Bot signup](http://evanx.github.io/images/rquery/ws040-webservabot.png)
+<hr>
 
 The cert script will advise how to install our CLI `wscurl` bash script. This is a wrapper of `curl` using your cert in `~/.webserva/live`
 
