@@ -1,0 +1,22 @@
+{
+  "name": "redishub",
+  "version": "1.0.0",
+  "description": "Note that this service was rebranded in June 2016 from <b>RedisHub.com to WebServa.com</b>",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/evanx/redishub.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/evanx/redishub/issues"
+  },
+  "homepage": "https://github.com/evanx/redishub#readme"
+}
